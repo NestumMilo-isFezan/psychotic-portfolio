@@ -1,14 +1,14 @@
 import { useEffect, useSyncExternalStore } from "react";
 import { AnimatePresence, motion } from "motion/react";
-import { useWindowStore } from "./store/windowStore";
-import { useBootStore } from "./store/bootStore";
-import { Window } from "./components/Window/Window";
-import { Topbar } from "./components/Topbar/Topbar";
-import { Dock } from "./components/Dock/Dock";
-import { Cursor } from "./components/Cursor/Cursor";
-import { GlobalPlayer } from "./components/GlobalPlayer";
-import { BootScreen } from "./components/BootScreen/BootScreen";
-import { Wallpaper } from "./components/Wallpaper/Wallpaper";
+import { useWindowStore } from "./store/window-store";
+import { useBootStore } from "./store/boot-store";
+import { Window } from "./components/window/window";
+import { Topbar } from "./components/topbar/topbar";
+import { Dock } from "./components/dock/dock";
+import { Cursor } from "./components/cursor/cursor";
+import { GlobalPlayer } from "./components/apps/music/core/global-player";
+import { BootScreen } from "./screens/boot";
+import { Wallpaper } from "./screens/wallpaper";
 import styles from "./App.module.css";
 
 const portraitQuery = window.matchMedia("(orientation: portrait)");
