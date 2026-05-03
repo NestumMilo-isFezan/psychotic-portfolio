@@ -1,5 +1,6 @@
 import "dotenv/config";
 import { Hono } from "hono";
+import { serveStatic } from "hono/bun";
 import { Innertube } from "youtubei.js";
 import { readdir } from "node:fs/promises";
 import { join, extname } from "node:path";
@@ -154,4 +155,14 @@ app.get("/api/ytm/history", async (c) => {
 // Eager initialization on startup
 void ensureInitialized();
 
-export default app;
+// Production static serving
+if (process.env.NODE_ENV === "production") {
+  app.use("/*", serveStatic({ root: "./dist" }));
+}
+
+const port = Number(process.env.PORT) || 3000;
+
+export default {
+  port,
+  fetch: app.fetch,
+};
