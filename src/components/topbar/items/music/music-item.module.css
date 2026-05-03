@@ -79,6 +79,7 @@
   padding: 5px 8px;
   font-size: 11px;
   box-shadow: 2px 2px 0 var(--purple);
+  color: var(--text-badge);
 }
 
 .playerHero {
