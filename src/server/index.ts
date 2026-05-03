@@ -1,6 +1,5 @@
 import "dotenv/config";
 import { Hono } from "hono";
-import { serveStatic } from "hono/bun";
 import { Innertube } from "youtubei.js";
 import { readdir } from "node:fs/promises";
 import { join, extname } from "node:path";
@@ -157,6 +156,7 @@ void ensureInitialized();
 
 // Production static serving
 if (process.env.NODE_ENV === "production") {
+  const { serveStatic } = await import("hono/bun");
   app.use("/*", serveStatic({ root: "./dist" }));
 }
 

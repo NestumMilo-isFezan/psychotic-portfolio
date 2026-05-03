@@ -1,6 +1,6 @@
 :root {
   /* PRIMARY PALETTE */
-  --bg-darkest: rgba(13, 10, 26, 0);
+  --bg-darkest: rgba(13, 10, 26, 1);
   --bg-dark: rgba(26, 14, 46, 0.55);
   --bg-mid: rgba(45, 27, 78, 0.6);
   --cyan: #00e5ff;

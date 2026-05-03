@@ -59,27 +59,32 @@ function App() {
   return (
     <>
       <Cursor />
-      {isPortrait && (
-        <div className={styles.portraitBlock}>
-          <div className={styles.portraitInner}>
-            <div className={styles.portraitLogo}>PSYCHOS</div>
-            <div className={styles.portraitCode}>ERR_ORIENTATION_MISMATCH</div>
-            <p className={styles.portraitMsg}>
-              This terminal wasn&apos;t built for portrait mode.
-              <br />
-              Rotate your screen to landscape — or hold on tight.
-              <br />
-              <span className={styles.portraitSub}>
-                PSYCHOS mobile is loading in the void. Be patient.
-              </span>
-            </p>
-            <div className={styles.portraitCode}>▮</div>
-          </div>
-          <div className={styles.portraitScanlines} aria-hidden="true" />
-        </div>
-      )}
-      <AnimatePresence>
-        {!isDone ? (
+      <AnimatePresence mode="wait">
+        {isPortrait ? (
+          <motion.div
+            key="portrait-block"
+            className={styles.portraitBlock}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+          >
+            <div className={styles.portraitInner}>
+              <div className={styles.portraitLogo}>PSYCHOS</div>
+              <div className={styles.portraitCode}>ERR_ORIENTATION_MISMATCH</div>
+              <p className={styles.portraitMsg}>
+                This terminal wasn&apos;t built for portrait mode.
+                <br />
+                Rotate your screen to landscape — or hold on tight.
+                <br />
+                <span className={styles.portraitSub}>
+                  PSYCHOS mobile is loading in the void. Be patient.
+                </span>
+              </p>
+              <div className={styles.portraitCode}>▮</div>
+            </div>
+            <div className={styles.portraitScanlines} aria-hidden="true" />
+          </motion.div>
+        ) : !isDone ? (
           <BootScreen key="boot" />
         ) : (
           <motion.div

@@ -1,8 +1,8 @@
 .portraitBlock {
   position: fixed;
   inset: 0;
-  z-index: 99999;
-  background: var(--bg-darkest);
+  z-index: 999999;
+  background: #0d0a1a;
   display: flex;
   align-items: center;
   justify-content: center;
