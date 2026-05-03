@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import type { MusicItem } from "../features/music/types";
+import type { MusicItem } from "@/components/apps/music/core/types";
 
 type PlaybackStatus = "idle" | "loading" | "playing" | "paused" | "error";
 

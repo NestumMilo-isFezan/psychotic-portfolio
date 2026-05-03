@@ -10,8 +10,8 @@ import {
   Music2,
 } from "lucide-react";
 import styles from "./music-app.module.css";
-import { normalizeMusicTrack } from "../../../features/music/normalizeTrack";
-import type { HomeFeedResponse, MusicItem } from "../../../features/music/types";
+import { normalizeMusicTrack } from "./core/normalize-track";
+import type { HomeFeedResponse, MusicItem } from "./core/types";
 import { useMusicStore } from "@/store/music-store";
 import type { AppProps } from "@/components/apps/app-registry";
 
