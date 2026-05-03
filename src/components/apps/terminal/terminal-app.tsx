@@ -65,15 +65,16 @@ interface TerminalInputProps {
   currentPath: string;
   onCommand: (cmd: string) => void;
   getDirContents: (path: string) => FileItem[] | null;
+  inputRef: React.RefObject<HTMLInputElement | null>;
 }
 
 const TerminalInput: React.FC<TerminalInputProps> = ({
   currentPath,
   onCommand,
   getDirContents,
+  inputRef,
 }) => {
   const [inputValue, setInputValue] = useState("");
-  const inputRef = useRef<HTMLInputElement>(null);
 
   const handleTabComplete = useCallback(() => {
     const parts = inputValue.split(" ");
@@ -155,15 +156,24 @@ const TerminalInput: React.FC<TerminalInputProps> = ({
   );
 };
 
-export const TerminalApp: React.FC<AppProps> = () => {
+export const TerminalApp: React.FC<AppProps> = ({ windowId }) => {
   const [history, setHistory] = useState<HistoryItem[]>([]);
   const [currentPath, setCurrentPath] = useState("/");
   const [fileTree, setFileTree] = useState<FileItem[]>([]);
   const containerRef = useRef<HTMLDivElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
   const [hasRunOnboard, setHasRunOnboard] = useState(false);
   const addWindow = useWindowStore((state) => state.addWindow);
   const restoreNovel = useTrashStore((state) => state.restoreNovel);
   const novelExists = useTrashStore((state) => state.novelExists);
+
+  const isFocused = useWindowStore((state) => state.windows.find((w) => w.id === windowId)?.focused);
+
+  useEffect(() => {
+    if (isFocused) {
+      inputRef.current?.focus();
+    }
+  }, [isFocused]);
 
   const { data: fileData } = useQuery({
     queryKey: ["file-tree"],
@@ -425,6 +435,7 @@ export const TerminalApp: React.FC<AppProps> = () => {
         currentPath={currentPath}
         onCommand={handleCommand}
         getDirContents={getDirContents}
+        inputRef={inputRef}
       />
     </div>
   );

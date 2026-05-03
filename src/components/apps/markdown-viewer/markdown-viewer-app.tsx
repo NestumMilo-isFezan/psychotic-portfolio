@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect } from "react";
 import { marked } from "marked";
 import styles from "./markdown-viewer-app.module.css";
 import type { AppProps } from "@/components/apps/app-registry";
@@ -6,6 +6,7 @@ import type { AppProps } from "@/components/apps/app-registry";
 export const MarkdownViewerApp: React.FC<AppProps> = ({ params }) => {
   const path = params?.path as string | undefined;
   const [content, setContent] = useState<string | null>(null);
+  const [html, setHtml] = useState<string>("");
   const [error, setError] = useState<string | null>(null);
 
   const filename = path ? path.split("/").pop() : null;
@@ -19,6 +20,9 @@ export const MarkdownViewerApp: React.FC<AppProps> = ({ params }) => {
         if (!response.ok) throw new Error(`HTTP_${response.status}`);
         const text = await response.text();
         setContent(text);
+
+        const parsedHtml = await marked.parse(text);
+        setHtml(parsedHtml);
       } catch (err) {
         setError(err instanceof Error ? err.message : "UNKNOWN_ERROR");
       }
@@ -53,8 +57,6 @@ export const MarkdownViewerApp: React.FC<AppProps> = ({ params }) => {
       </div>
     );
   }
-
-  const html = useMemo(() => marked.parse(content) as string, [content]);
 
   return (
     <div className={styles.container}>

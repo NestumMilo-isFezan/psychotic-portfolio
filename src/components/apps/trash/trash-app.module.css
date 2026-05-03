@@ -308,6 +308,44 @@
   font-style: italic;
 }
 
+.readerContent :global(a) {
+  color: var(--cyan);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.15s;
+}
+
+.readerContent :global(a:hover) {
+  border-bottom-color: var(--cyan);
+}
+
+.readerContent :global(code) {
+  font-family: var(--font-data);
+  font-size: 0.78rem;
+  color: var(--cyan);
+  background: var(--bg-dark);
+  border: 1px solid var(--bg-mid);
+  padding: 0.05rem 0.35rem;
+}
+
+.readerContent :global(pre) {
+  background: var(--bg-dark);
+  border: 1px solid var(--bg-mid);
+  border-left: 3px solid var(--cyan);
+  padding: 0.75rem 1rem;
+  overflow-x: auto;
+  margin: 0.75rem 0;
+}
+
+.readerContent :global(pre code) {
+  font-family: var(--font-data);
+  font-size: 0.78rem;
+  color: var(--text);
+  background: none;
+  border: none;
+  padding: 0;
+}
+
 .readerContent :global(blockquote) {
   border-left: 3px solid var(--purple);
   background: var(--bg-dark);
@@ -317,6 +355,24 @@
   opacity: 0.85;
   font-style: italic;
   box-shadow: 2px 2px 0 var(--purple);
+}
+
+.readerContent :global(ul),
+.readerContent :global(ol) {
+  padding-left: 1.25rem;
+  margin: 0.5rem 0;
+}
+
+.readerContent :global(li) {
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  color: var(--text);
+  margin: 0.2rem 0;
+  line-height: 1.6;
+}
+
+.readerContent :global(li::marker) {
+  color: var(--yellow);
 }
 
 .readerContent :global(hr) {

@@ -1,4 +1,3 @@
-import React from "react";
 import ReactPlayer from "react-player";
 import { useGlobalPlayer } from "./use-global-player";
 
@@ -45,10 +44,10 @@ export const GlobalPlayer = () => {
         onPlaying={() => setStatus("playing")}
         onPlay={() => setStatus("playing")}
         onPause={() => setStatus("paused")}
-        onDurationChange={(e: React.SyntheticEvent<HTMLVideoElement>) => {
+        onDurationChange={(e: any) => {
           setDuration(e.currentTarget.duration);
         }}
-        onTimeUpdate={(e: React.SyntheticEvent<HTMLVideoElement>) => {
+        onTimeUpdate={(e: any) => {
           updateProgress(e.currentTarget.currentTime);
         }}
         onEnded={() => {

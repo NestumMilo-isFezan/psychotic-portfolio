@@ -114,6 +114,15 @@ export const TrashApp: React.FC<AppProps> = () => {
     return { before: raw.slice(0, idx), after: raw.slice(idx) };
   };
 
+  const { beforeHtml, afterHtml } = useMemo(() => {
+    if (!content) return { beforeHtml: "", afterHtml: "" };
+    const { before, after } = splitContent(content);
+    return {
+      beforeHtml: marked.parse(before) as string,
+      afterHtml: after ? (marked.parse(after) as string) : "",
+    };
+  }, [content]);
+
   const isGlitching = phase === "glitch";
   const isBlank = phase === "blank" || phase === "done";
 
@@ -174,15 +183,6 @@ export const TrashApp: React.FC<AppProps> = () => {
   }
 
   // ── READER VIEW ──
-  const { beforeHtml, afterHtml } = useMemo(() => {
-    if (!content) return { beforeHtml: "", afterHtml: "" };
-    const { before, after } = splitContent(content);
-    return {
-      beforeHtml: marked.parse(before) as string,
-      afterHtml: after ? (marked.parse(after) as string) : "",
-    };
-  }, [content]);
-
   return (
     <div className={`${styles.container} ${isGlitching ? styles.glitching : ""}`}>
       {isGlitching && <div className={styles.crtOverlay} aria-hidden="true" />}

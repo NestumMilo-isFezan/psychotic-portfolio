@@ -59,33 +59,38 @@ export const Cursor = () => {
     };
 
     const onMouseMove = (e: MouseEvent) => {
-      if (cursorRef.current) {
-        cursorRef.current.style.transform = `translate3d(${e.clientX}px, ${e.clientY}px, 0)`;
-      }
-
-      const currentState = useCursorStore.getState();
-      if (currentState.hidden) {
-        setHidden(false);
-      }
-
+      const clientX = e.clientX;
+      const clientY = e.clientY;
       const target = e.target as HTMLElement | null;
-      if (!target) {
-        if (currentState.hoverMode !== "default") {
-          clearHoverMode();
+
+      requestAnimationFrame(() => {
+        if (cursorRef.current) {
+          cursorRef.current.style.transform = `translate3d(${clientX}px, ${clientY}px, 0)`;
         }
-        lastTargetRef.current = null;
-        return;
-      }
 
-      if (target === lastTargetRef.current) {
-        return;
-      }
+        const currentState = useCursorStore.getState();
+        if (currentState.hidden) {
+          setHidden(false);
+        }
 
-      lastTargetRef.current = target;
-      const nextMode = resolveHoverMode(target);
-      if (currentState.hoverMode !== nextMode) {
-        setHoverMode(nextMode);
-      }
+        if (!target) {
+          if (currentState.hoverMode !== "default") {
+            clearHoverMode();
+          }
+          lastTargetRef.current = null;
+          return;
+        }
+
+        if (target === lastTargetRef.current) {
+          return;
+        }
+
+        lastTargetRef.current = target;
+        const nextMode = resolveHoverMode(target);
+        if (currentState.hoverMode !== nextMode) {
+          setHoverMode(nextMode);
+        }
+      });
     };
 
     const onMouseLeave = () => {
