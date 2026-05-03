@@ -22,6 +22,7 @@ const isCursorMode = (value: string | null): value is CursorMode => {
 
 export const Cursor = () => {
   const cursorRef = useRef<HTMLDivElement>(null);
+  const lastTargetRef = useRef<HTMLElement | null>(null);
   const mode = useCursorStore((state) => state.activeMode ?? state.hoverMode);
   const activeMode = useCursorStore((state) => state.activeMode);
   const hidden = useCursorStore((state) => state.hidden);
@@ -62,29 +63,44 @@ export const Cursor = () => {
         cursorRef.current.style.transform = `translate3d(${e.clientX}px, ${e.clientY}px, 0)`;
       }
 
-      setHidden(false);
+      const currentState = useCursorStore.getState();
+      if (currentState.hidden) {
+        setHidden(false);
+      }
 
       const target = e.target as HTMLElement | null;
       if (!target) {
-        clearHoverMode();
+        if (currentState.hoverMode !== "default") {
+          clearHoverMode();
+        }
+        lastTargetRef.current = null;
         return;
       }
 
-      setHoverMode(resolveHoverMode(target));
+      if (target === lastTargetRef.current) {
+        return;
+      }
+
+      lastTargetRef.current = target;
+      const nextMode = resolveHoverMode(target);
+      if (currentState.hoverMode !== nextMode) {
+        setHoverMode(nextMode);
+      }
     };
 
     const onMouseLeave = () => {
       setHidden(true);
       clearHoverMode();
+      lastTargetRef.current = null;
     };
 
     const onMouseEnter = () => {
       setHidden(false);
     };
 
-    window.addEventListener("mousemove", onMouseMove);
-    document.addEventListener("mouseleave", onMouseLeave);
-    document.addEventListener("mouseenter", onMouseEnter);
+    window.addEventListener("mousemove", onMouseMove, { passive: true });
+    document.addEventListener("mouseleave", onMouseLeave, { passive: true });
+    document.addEventListener("mouseenter", onMouseEnter, { passive: true });
 
     return () => {
       window.removeEventListener("mousemove", onMouseMove);

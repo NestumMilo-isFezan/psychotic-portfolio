@@ -35,10 +35,21 @@
 }
 
 @keyframes errorFlicker {
-  0% { opacity: 0; transform: translateX(-3px); }
-  40% { opacity: 1; transform: translateX(2px); }
-  70% { transform: translateX(-1px); }
-  100% { opacity: 1; transform: translateX(0); }
+  0% {
+    opacity: 0;
+    transform: translateX(-3px);
+  }
+  40% {
+    opacity: 1;
+    transform: translateX(2px);
+  }
+  70% {
+    transform: translateX(-1px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 
 /* ── INPUT LINE ── */
@@ -79,8 +90,13 @@
 }
 
 @keyframes blink {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0; }
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
 }
 
 .hiddenInput {

@@ -28,19 +28,22 @@ const PERMANENT_APPS = [
   { name: "TRASH", iconName: "NULL", Icon: Trash2, title: "Trash" },
 ];
 
+let spawnSound: Howl | null = null;
+
+const getSpawnSound = () => {
+  if (!spawnSound) {
+    spawnSound = new Howl({
+      src: ["https://assets.mixkit.co/active_storage/sfx/2568/2568-preview.mp3"],
+      volume: 0.5,
+    });
+  }
+  return spawnSound;
+};
+
 export const Dock = () => {
   const addWindow = useWindowStore((state) => state.addWindow);
   const windows = useWindowStore((state) => state.windows);
   const focusWindow = useWindowStore((state) => state.focusWindow);
-
-  const spawnSound = useMemo(
-    () =>
-      new Howl({
-        src: ["https://assets.mixkit.co/active_storage/sfx/2568/2568-preview.mp3"],
-        volume: 0.5,
-      }),
-    [],
-  );
 
   const handleAppClick = useCallback(
     (appName: string, iconName: string, defaultId?: string) => {
@@ -69,12 +72,40 @@ export const Dock = () => {
       const isPermanent = PERMANENT_APPS.some((a) => a.name === appName);
       if (!isPermanent) return;
 
-      spawnSound.play();
+      getSpawnSound().play();
       const id = defaultId || `app-${Date.now()}`;
-      const width = appName === "WELCOME" ? 1270 : appName === "MUSIC" ? 900 : appName === "PROFILE" ? 760 : appName === "CONTACT" ? 620 : appName === "BROWSER" ? 750 : 600;
-      const height = appName === "WELCOME" ? 720 : appName === "MUSIC" ? 700 : appName === "PROFILE" ? 580 : appName === "CONTACT" ? 420 : appName === "BROWSER" ? 580 : 450;
-      const x = appName === "WELCOME" ? window.innerWidth / 2 - 635 : Math.random() * (window.innerWidth - width - 100) + 50;
-      const y = appName === "WELCOME" ? window.innerHeight / 2 - 450 : Math.random() * (window.innerHeight - height - 100) + 50;
+      const width =
+        appName === "WELCOME"
+          ? 1270
+          : appName === "MUSIC"
+            ? 900
+            : appName === "PROFILE"
+              ? 760
+              : appName === "CONTACT"
+                ? 620
+                : appName === "BROWSER"
+                  ? 750
+                  : 600;
+      const height =
+        appName === "WELCOME"
+          ? 720
+          : appName === "MUSIC"
+            ? 700
+            : appName === "PROFILE"
+              ? 580
+              : appName === "CONTACT"
+                ? 420
+                : appName === "BROWSER"
+                  ? 580
+                  : 450;
+      const x =
+        appName === "WELCOME"
+          ? window.innerWidth / 2 - 635
+          : Math.random() * (window.innerWidth - width - 100) + 50;
+      const y =
+        appName === "WELCOME"
+          ? window.innerHeight / 2 - 450
+          : Math.random() * (window.innerHeight - height - 100) + 50;
 
       addWindow({
         id,
@@ -87,7 +118,7 @@ export const Dock = () => {
         iconName,
       });
     },
-    [addWindow, windows, focusWindow, spawnSound],
+    [addWindow, windows, focusWindow],
   );
 
   const displayApps = useMemo(() => {

@@ -1,26 +1,19 @@
+import React from "react";
 import ReactPlayer from "react-player";
-import { useMusicStore } from "@/store/music-store";
-import { useEffect, useRef, type SyntheticEvent } from "react";
+import { useGlobalPlayer } from "./use-global-player";
 
 export const GlobalPlayer = () => {
-  const playerRef = useRef<HTMLVideoElement>(null);
-  const currentTrack = useMusicStore((state) => state.currentTrack);
-  const status = useMusicStore((state) => state.status);
-  const volume = useMusicStore((state) => state.volume);
-  const seekTarget = useMusicStore((state) => state.seekTarget);
-  const setStatus = useMusicStore((state) => state.setStatus);
-  const setDuration = useMusicStore((state) => state.setDuration);
-  const updateProgress = useMusicStore((state) => state.updateProgress);
-  const setError = useMusicStore((state) => state.setError);
-  const handleTrackEnd = useMusicStore((state) => state.handleTrackEnd);
-  const clearSeekTarget = useMusicStore((state) => state.clearSeekTarget);
-
-  useEffect(() => {
-    if (seekTarget !== null && playerRef.current) {
-      playerRef.current.currentTime = seekTarget;
-      clearSeekTarget();
-    }
-  }, [seekTarget, clearSeekTarget]);
+  const {
+    playerRef,
+    currentTrack,
+    status,
+    volume,
+    setStatus,
+    setDuration,
+    updateProgress,
+    setError,
+    handleTrackEnd,
+  } = useGlobalPlayer();
 
   if (!currentTrack) return null;
 
@@ -28,8 +21,11 @@ export const GlobalPlayer = () => {
     <div
       style={{
         position: "absolute",
-        width: 0,
-        height: 0,
+        top: -9999,
+        left: -9999,
+        width: "1px",
+        height: "1px",
+        opacity: 0,
         overflow: "hidden",
         pointerEvents: "none",
       }}
@@ -40,24 +36,20 @@ export const GlobalPlayer = () => {
         playing={status === "playing"}
         volume={volume}
         controls={false}
-        width="0"
-        height="0"
+        width="100%"
+        height="100%"
         onReady={() => {
           setStatus("playing");
         }}
         onWaiting={() => setStatus("loading")}
+        onPlaying={() => setStatus("playing")}
         onPlay={() => setStatus("playing")}
-        onDurationChange={(e: SyntheticEvent<HTMLVideoElement>) => {
-          const video = e.target as HTMLVideoElement;
-          if (video.duration) {
-            setDuration(video.duration);
-          }
+        onPause={() => setStatus("paused")}
+        onDurationChange={(e: React.SyntheticEvent<HTMLVideoElement>) => {
+          setDuration(e.currentTarget.duration);
         }}
-        onTimeUpdate={(e: SyntheticEvent<HTMLVideoElement>) => {
-          const video = e.target as HTMLVideoElement;
-          if (video.currentTime) {
-            updateProgress(video.currentTime);
-          }
+        onTimeUpdate={(e: React.SyntheticEvent<HTMLVideoElement>) => {
+          updateProgress(e.currentTarget.currentTime);
         }}
         onEnded={() => {
           handleTrackEnd();

@@ -101,7 +101,8 @@ const resizeDirectionMap: Record<ResizeDirection, ResizeCursorDirection> = {
   topLeft: "topLeft",
 };
 
-export const Window: React.FC<WindowProps> = ({ data }) => {
+export const Window = React.memo(({ data }: WindowProps) => {
+  const layout = useWindowStore((state) => state.layouts[data.id]);
   const focusWindow = useWindowStore((state) => state.focusWindow);
   const closeWindow = useWindowStore((state) => state.closeWindow);
   const minimizeWindow = useWindowStore((state) => state.minimizeWindow);
@@ -111,6 +112,12 @@ export const Window: React.FC<WindowProps> = ({ data }) => {
   const stopDragging = useCursorStore((state) => state.stopDragging);
   const startResizing = useCursorStore((state) => state.startResizing);
   const stopResizing = useCursorStore((state) => state.stopResizing);
+  const isDragging = useCursorStore((state) => state.isDragging);
+  const isResizing = useCursorStore((state) => state.isResizing);
+
+  if (!layout) return null;
+
+  const isInteracting = (isDragging || isResizing) && data.focused;
 
   const renderContent = () => {
     const AppComponent = getAppComponent(data.appName);
@@ -129,8 +136,8 @@ export const Window: React.FC<WindowProps> = ({ data }) => {
 
   return (
     <Rnd
-      size={{ width: data.width, height: data.height }}
-      position={{ x: data.x, y: data.y }}
+      size={{ width: layout.width, height: layout.height }}
+      position={{ x: layout.x, y: layout.y }}
       onDragStart={() => {
         focusWindow(data.id);
         startDragging();
@@ -168,7 +175,9 @@ export const Window: React.FC<WindowProps> = ({ data }) => {
         className={styles.windowWrapper}
       >
         <div className={`${styles.windowShadow} ${data.focused ? styles.focused : ""}`} />
-        <div className={`${styles.window} ${data.focused ? styles.focused : ""}`}>
+        <div
+          className={`${styles.window} ${data.focused ? styles.focused : ""} ${isInteracting ? styles.interacting : ""}`}
+        >
           <div className={styles.titleBar} data-cursor-mode="grab">
             <div className={styles.controls}>
               <div
@@ -196,4 +205,4 @@ export const Window: React.FC<WindowProps> = ({ data }) => {
       </motion.div>
     </Rnd>
   );
-};
+});

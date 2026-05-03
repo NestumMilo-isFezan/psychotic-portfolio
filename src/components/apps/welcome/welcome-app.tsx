@@ -15,7 +15,11 @@ export const WelcomeApp: React.FC<AppProps> = () => {
         </p>
       </div>
       <div className={styles.rightPane}>
-        <img src="/welcome/ascii-mountain.jpg" alt="ascii mountain" className={styles.mountainImg} />
+        <img
+          src="/welcome/ascii-mountain.jpg"
+          alt="ascii mountain"
+          className={styles.mountainImg}
+        />
       </div>
     </div>
   );

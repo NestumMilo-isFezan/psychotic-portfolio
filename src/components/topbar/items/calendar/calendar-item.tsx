@@ -4,8 +4,18 @@ import styles from "./calendar-item.module.css";
 import topbarStyles from "../../topbar.module.css";
 
 const MONTH_NAMES = [
-  "January", "February", "March", "April", "May", "June",
-  "July", "August", "September", "October", "November", "December",
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
 ];
 const DAY_HEADERS = ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"];
 
@@ -45,13 +55,17 @@ export const CalendarItem: React.FC<CalendarItemProps> = ({ time }) => {
   };
 
   const prevMonth = () => {
-    if (viewMonth === 0) { setViewMonth(11); setViewYear((y) => y - 1); }
-    else setViewMonth((m) => m - 1);
+    if (viewMonth === 0) {
+      setViewMonth(11);
+      setViewYear((y) => y - 1);
+    } else setViewMonth((m) => m - 1);
   };
 
   const nextMonth = () => {
-    if (viewMonth === 11) { setViewMonth(0); setViewYear((y) => y + 1); }
-    else setViewMonth((m) => m + 1);
+    if (viewMonth === 11) {
+      setViewMonth(0);
+      setViewYear((y) => y + 1);
+    } else setViewMonth((m) => m + 1);
   };
 
   const buildDays = () => {
@@ -71,9 +85,24 @@ export const CalendarItem: React.FC<CalendarItemProps> = ({ time }) => {
 
   const formatDateTime = () => {
     const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-    const months = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+    const months = [
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr",
+      "May",
+      "Jun",
+      "Jul",
+      "Aug",
+      "Sep",
+      "Oct",
+      "Nov",
+      "Dec",
+    ];
     const formattedTime = time.toLocaleTimeString("en-US", {
-      hour: "2-digit", minute: "2-digit", hour12: true,
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: true,
     });
     return `${days[time.getDay()]} ${months[time.getMonth()]} ${time.getDate()} ${formattedTime}`;
   };
@@ -93,18 +122,32 @@ export const CalendarItem: React.FC<CalendarItemProps> = ({ time }) => {
       {isOpen && (
         <div className={styles.calendarDropdown}>
           <div className={styles.calNav}>
-            <button className={styles.calNavBtn} onClick={prevMonth} data-cursor-mode="pointer" aria-label="Previous month">
+            <button
+              className={styles.calNavBtn}
+              onClick={prevMonth}
+              data-cursor-mode="pointer"
+              aria-label="Previous month"
+            >
               <ChevronLeft size={13} />
             </button>
-            <span className={styles.calMonthLabel}>{MONTH_NAMES[viewMonth]} {viewYear}</span>
-            <button className={styles.calNavBtn} onClick={nextMonth} data-cursor-mode="pointer" aria-label="Next month">
+            <span className={styles.calMonthLabel}>
+              {MONTH_NAMES[viewMonth]} {viewYear}
+            </span>
+            <button
+              className={styles.calNavBtn}
+              onClick={nextMonth}
+              data-cursor-mode="pointer"
+              aria-label="Next month"
+            >
               <ChevronRight size={13} />
             </button>
           </div>
 
           <div className={styles.calGrid}>
             {DAY_HEADERS.map((d) => (
-              <div key={d} className={styles.calDayHeader}>{d}</div>
+              <div key={d} className={styles.calDayHeader}>
+                {d}
+              </div>
             ))}
             {calDays.map((cell, i) => (
               <div

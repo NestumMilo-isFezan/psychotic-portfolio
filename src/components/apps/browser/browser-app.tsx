@@ -64,9 +64,7 @@ const getRandomIndex = (exclude: number, max: number): number => {
 };
 
 export const BrowserApp: React.FC<AppProps> = () => {
-  const [quoteIndex, setQuoteIndex] = useState(() =>
-    Math.floor(Math.random() * QUOTES.length),
-  );
+  const [quoteIndex, setQuoteIndex] = useState(() => Math.floor(Math.random() * QUOTES.length));
   const [rerolling, setRerolling] = useState(false);
   const addWindow = useWindowStore((s) => s.addWindow);
 
@@ -148,11 +146,7 @@ export const BrowserApp: React.FC<AppProps> = () => {
             Got a project, collab idea, or just want to say hi?
             <span className={styles.ctaCursor}>▮</span>
           </p>
-          <button
-            className={styles.ctaBtn}
-            onClick={openContact}
-            data-cursor-mode="pointer"
-          >
+          <button className={styles.ctaBtn} onClick={openContact} data-cursor-mode="pointer">
             CONTACT NOW
           </button>
         </div>

@@ -32,6 +32,16 @@ export default defineConfig(({ mode }) => {
     build: {
       chunkSizeWarningLimit: 1000,
       rollupOptions: {
+        output: {
+          manualChunks(id) {
+            if (id.includes("node_modules")) {
+              if (id.includes("react")) return "vendor-react";
+              if (id.includes("motion")) return "vendor-motion";
+              if (id.includes("lucide") || id.includes("react-icons")) return "vendor-icons";
+              return "vendor-utils";
+            }
+          },
+        },
         onwarn(warning, warn) {
           if (warning.code === "COMMONJS_VARIABLE_IN_ESM") return;
           warn(warning);

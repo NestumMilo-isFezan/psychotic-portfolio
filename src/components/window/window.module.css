@@ -2,6 +2,8 @@
   position: relative;
   width: 100%;
   height: 100%;
+  will-change: transform;
+  transform: translateZ(0);
 }
 
 .resizeHandle {
@@ -40,6 +42,13 @@
 
 .window.focused {
   border-color: var(--cyan);
+}
+
+.window.interacting {
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  border-style: dashed;
+  opacity: 0.8;
 }
 
 .windowShadow.focused {

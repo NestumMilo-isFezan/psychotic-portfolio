@@ -1,11 +1,5 @@
 import React, { useState, useCallback, useEffect } from "react";
-import {
-  FaFolder,
-  FaFolderOpen,
-  FaFileLines,
-  FaImage,
-  FaChevronLeft,
-} from "react-icons/fa6";
+import { FaFolder, FaFolderOpen, FaFileLines, FaImage, FaChevronLeft } from "react-icons/fa6";
 import { useWindowStore } from "@/store/window-store";
 import styles from "./files-app.module.css";
 

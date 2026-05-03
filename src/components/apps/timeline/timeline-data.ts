@@ -34,7 +34,8 @@ export const timelineData: TimelineEntry[] = [
     id: "2026-jan",
     date: "2026 Jan",
     title: "Enterprise Scale Development",
-    description: "Built high-volume event-driven software; query optimization, race conditions, React performance",
+    description:
+      "Built high-volume event-driven software; query optimization, race conditions, React performance",
   },
   {
     id: "2026-feb",

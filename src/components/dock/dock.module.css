@@ -79,7 +79,9 @@
   white-space: nowrap;
   pointer-events: none;
   opacity: 0;
-  transition: opacity 0.15s, transform 0.15s;
+  transition:
+    opacity 0.15s,
+    transform 0.15s;
   box-shadow: 2px 2px 0 var(--purple);
   z-index: 20;
 }

@@ -1,7 +1,6 @@
 import { useState, useEffect, useRef } from "react";
-import {
-  Music2, Pause, Play, SkipBack, SkipForward, Volume2,
-} from "lucide-react";
+import { Music2, Pause, Play, SkipBack, SkipForward, Volume2 } from "lucide-react";
+import { useShallow } from "zustand/react/shallow";
 import { useMusicStore } from "@/store/music-store";
 import { useWindowStore } from "@/store/window-store";
 import styles from "./music-item.module.css";
@@ -16,19 +15,39 @@ export const MusicItem: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const ref = useRef<HTMLDivElement | null>(null);
 
-  const currentTrack = useMusicStore((state) => state.currentTrack);
-  const status = useMusicStore((state) => state.status);
-  const queue = useMusicStore((state) => state.queue);
-  const currentIndex = useMusicStore((state) => state.currentIndex);
-  const duration = useMusicStore((state) => state.duration);
-  const currentTime = useMusicStore((state) => state.currentTime);
-  const volume = useMusicStore((state) => state.volume);
-  const error = useMusicStore((state) => state.error);
-  const togglePlayPause = useMusicStore((state) => state.togglePlayPause);
-  const playNext = useMusicStore((state) => state.playNext);
-  const playPrevious = useMusicStore((state) => state.playPrevious);
-  const seek = useMusicStore((state) => state.seek);
-  const setVolume = useMusicStore((state) => state.setVolume);
+  const {
+    currentTrack,
+    status,
+    queue,
+    currentIndex,
+    duration,
+    currentTime,
+    volume,
+    error,
+    togglePlayPause,
+    playNext,
+    playPrevious,
+    seek,
+    setVolume,
+    setHasStartedMusic,
+  } = useMusicStore(
+    useShallow((state) => ({
+      currentTrack: state.currentTrack,
+      status: state.status,
+      queue: state.queue,
+      currentIndex: state.currentIndex,
+      duration: state.duration,
+      currentTime: state.currentTime,
+      volume: state.volume,
+      error: state.error,
+      togglePlayPause: state.togglePlayPause,
+      playNext: state.playNext,
+      playPrevious: state.playPrevious,
+      seek: state.seek,
+      setVolume: state.setVolume,
+      setHasStartedMusic: state.setHasStartedMusic,
+    })),
+  );
 
   const windows = useWindowStore((state) => state.windows);
   const addWindow = useWindowStore((state) => state.addWindow);
@@ -56,6 +75,7 @@ export const MusicItem: React.FC = () => {
   }, [isOpen]);
 
   const openMusicWindow = () => {
+    setHasStartedMusic(true);
     const existing = windows.find((w) => w.appName === "MUSIC");
     if (existing) {
       focusWindow(existing.id);
@@ -98,7 +118,11 @@ export const MusicItem: React.FC = () => {
         <div className={styles.playerDropdown}>
           <div className={styles.playerHeader}>
             <span className={styles.playerEyebrow}>Menu Bar Player</span>
-            <button className={styles.openMusicButton} onClick={openMusicWindow} data-cursor-mode="pointer">
+            <button
+              className={styles.openMusicButton}
+              onClick={openMusicWindow}
+              data-cursor-mode="pointer"
+            >
               Open Music
             </button>
           </div>
@@ -106,30 +130,59 @@ export const MusicItem: React.FC = () => {
           <div className={styles.playerHero}>
             <div className={styles.playerArtworkWrap}>
               {currentTrack.thumbnail ? (
-                <img src={currentTrack.thumbnail} alt={currentTrack.title} className={styles.playerArtwork} referrerPolicy="no-referrer" />
+                <img
+                  src={currentTrack.thumbnail}
+                  alt={currentTrack.title}
+                  className={styles.playerArtwork}
+                  referrerPolicy="no-referrer"
+                />
               ) : (
-                <div className={styles.playerArtworkFallback}><Music2 size={24} /></div>
+                <div className={styles.playerArtworkFallback}>
+                  <Music2 size={24} />
+                </div>
               )}
             </div>
             <div className={styles.playerMeta}>
               <span className={styles.playerStatus}>
                 {status === "loading" ? "BUFFERING" : status.toUpperCase()}
               </span>
-              <strong className={styles.playerTitle}>{currentTrack.title || "No track selected"}</strong>
-              <span className={styles.playerArtist}>{currentTrack.artist || "Open Music and choose a recent track."}</span>
+              <strong className={styles.playerTitle}>
+                {currentTrack.title || "No track selected"}
+              </strong>
+              <span className={styles.playerArtist}>
+                {currentTrack.artist || "Open Music and choose a recent track."}
+              </span>
             </div>
           </div>
 
           {error && <div className={styles.playerError}>{error}</div>}
 
           <div className={styles.playerControls}>
-            <button className={styles.controlButton} onClick={() => playPrevious()} disabled={!canGoPrevious} data-cursor-mode="pointer" aria-label="Previous track">
+            <button
+              className={styles.controlButton}
+              onClick={() => playPrevious()}
+              disabled={!canGoPrevious}
+              data-cursor-mode="pointer"
+              aria-label="Previous track"
+            >
               <SkipBack size={16} />
             </button>
-            <button className={styles.playButton} onClick={togglePlayPause} disabled={!canPlay} data-cursor-mode="pointer" aria-label={isPlaying ? "Pause" : "Play"}>
+            <button
+              className={styles.playButton}
+              onClick={togglePlayPause}
+              disabled={!canPlay}
+              data-cursor-mode="pointer"
+              aria-label={isPlaying ? "Pause" : "Play"}
+            >
               {isPlaying ? <Pause size={18} /> : <Play size={18} />}
             </button>
-            <button className={styles.controlButton} onClick={() => playNext()} disabled={!canGoNext} data-cursor-mode="pointer" aria-label="Next track">
+            <button
+              className={styles.controlButton}
+              onClick={() => playNext()}
+              disabled={!canGoNext}
+              data-cursor-mode="pointer"
+              aria-label="Next track"
+            >
               <SkipForward size={16} />
             </button>
           </div>
@@ -137,12 +190,19 @@ export const MusicItem: React.FC = () => {
           <div className={styles.progressBlock}>
             <div className={styles.progressMeta}>
               <span>{formatTime(currentTime)}</span>
-              <span>{currentTrack ? `${Math.max(currentIndex + 1, 1)} / ${Math.max(queue.length, 1)}` : "IDLE"}</span>
+              <span>
+                {currentTrack
+                  ? `${Math.max(currentIndex + 1, 1)} / ${Math.max(queue.length, 1)}`
+                  : "IDLE"}
+              </span>
               <span>{formatTime(duration)}</span>
             </div>
             <input
               className={styles.progressSlider}
-              type="range" min={0} max={duration || 0} step={1}
+              type="range"
+              min={0}
+              max={duration || 0}
+              step={1}
               value={Math.min(currentTime, duration || 0)}
               onChange={(e) => seek(Number(e.target.value))}
               disabled={!currentTrack || duration <= 0}
@@ -152,10 +212,16 @@ export const MusicItem: React.FC = () => {
           </div>
 
           <div className={styles.volumeRow}>
-            <span className={styles.volumeLabel}><Volume2 size={14} /> Volume</span>
+            <span className={styles.volumeLabel}>
+              <Volume2 size={14} /> Volume
+            </span>
             <input
               className={styles.volumeSlider}
-              type="range" min={0} max={1} step={0.01} value={volume}
+              type="range"
+              min={0}
+              max={1}
+              step={0.01}
+              value={volume}
               onChange={(e) => setVolume(Number(e.target.value))}
               data-cursor-mode="pointer"
               style={{ "--progress": `${volume * 100}%` } as React.CSSProperties}

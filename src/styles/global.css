@@ -1,8 +1,6 @@
-@import url("https://fonts.googleapis.com/css2?family=DotGothic16&family=M+PLUS+1+Code:wght@400;700&family=Pixelify+Sans:wght@400;700&family=Share+Tech+Mono&display=swap");
-
 :root {
   /* PRIMARY PALETTE */
-  --bg-darkest: rgba(13, 10, 26, 0.0);
+  --bg-darkest: rgba(13, 10, 26, 0);
   --bg-dark: rgba(26, 14, 46, 0.55);
   --bg-mid: rgba(45, 27, 78, 0.6);
   --cyan: #00e5ff;
@@ -10,10 +8,14 @@
   --purple: #bf00ff;
   --yellow: #ffe600;
   --text: #e0e0ff;
+  --text-badge: #0d0a1a;
+  --text-volumes: #e0e0ff;
+  --text-names: #e0e0ff;
+  --text-types: #e0e0ff;
 
   /* COMPONENT MAPPING */
   --border-color: var(--bg-mid);
-  --bg-window: rgba(13, 10, 26, 0.0);
+  --bg-window: rgba(13, 10, 26, 0);
 
   --bg-color: var(--bg-darkest);
   --text-color: var(--text);
@@ -21,7 +23,7 @@
   --accent-cyan: var(--cyan);
   --accent-yellow: var(--yellow);
 
-  --window-bg: rgba(13, 10, 26, 0.0);
+  --window-bg: rgba(13, 10, 26, 0);
   --window-surface: var(--bg-dark);
 
   /* TYPOGRAPHY */

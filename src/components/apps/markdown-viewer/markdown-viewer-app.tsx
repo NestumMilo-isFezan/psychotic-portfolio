@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { marked } from "marked";
 import styles from "./markdown-viewer-app.module.css";
 import type { AppProps } from "@/components/apps/app-registry";
@@ -54,7 +54,7 @@ export const MarkdownViewerApp: React.FC<AppProps> = ({ params }) => {
     );
   }
 
-  const html = marked.parse(content) as string;
+  const html = useMemo(() => marked.parse(content) as string, [content]);
 
   return (
     <div className={styles.container}>
@@ -63,10 +63,7 @@ export const MarkdownViewerApp: React.FC<AppProps> = ({ params }) => {
         <span className={styles.toolbarTitle}>{filename}</span>
         <span className={styles.toolbarDecoRight}>░▒▓</span>
       </div>
-      <div
-        className={styles.content}
-        dangerouslySetInnerHTML={{ __html: html }}
-      />
+      <div className={styles.content} dangerouslySetInnerHTML={{ __html: html }} />
     </div>
   );
 };

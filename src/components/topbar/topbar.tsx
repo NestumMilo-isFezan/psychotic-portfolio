@@ -30,10 +30,18 @@ export const Topbar = () => {
         <span className={`${styles.menuItem} ${styles.activeTitle}`} data-cursor-mode="pointer">
           {activeTitle}
         </span>
-        <span className={styles.menuItem} data-cursor-mode="pointer">File</span>
-        <span className={styles.menuItem} data-cursor-mode="pointer">Edit</span>
-        <span className={styles.menuItem} data-cursor-mode="pointer">View</span>
-        <span className={styles.menuItem} data-cursor-mode="pointer">Help</span>
+        <span className={styles.menuItem} data-cursor-mode="pointer">
+          File
+        </span>
+        <span className={styles.menuItem} data-cursor-mode="pointer">
+          Edit
+        </span>
+        <span className={styles.menuItem} data-cursor-mode="pointer">
+          View
+        </span>
+        <span className={styles.menuItem} data-cursor-mode="pointer">
+          Help
+        </span>
       </div>
 
       <div className={styles.right}>

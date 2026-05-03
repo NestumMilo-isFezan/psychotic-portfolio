@@ -31,12 +31,14 @@
   box-shadow: none;
   padding: 0;
   flex-shrink: 0;
-  transition: background 0.12s, color 0.12s;
+  transition:
+    background 0.12s,
+    color 0.12s;
 }
 
 .backBtn:hover:not(.disabled) {
   background: var(--cyan);
-  color: var(--bg-darkest);
+  color: var(--text-badge);
   box-shadow: none;
 }
 
@@ -101,7 +103,8 @@
   font-family: var(--font-ui);
   font-size: 0.6rem;
   font-weight: bold;
-  color: var(--bg-mid);
+  color: var(--text-volumes);
+  opacity: 0.7;
   letter-spacing: 3px;
   padding: 0.6rem 0.75rem 0.3rem;
   text-transform: uppercase;
@@ -114,10 +117,13 @@
   padding: 0.45rem 0.75rem;
   font-family: var(--font-body);
   font-size: 0.75rem;
-  color: var(--text);
-  opacity: 0.7;
+  color: var(--text-volumes);
+  opacity: 1;
   border-left: 2px solid transparent;
-  transition: opacity 0.1s, border-color 0.1s, background 0.1s;
+  transition:
+    opacity 0.1s,
+    border-color 0.1s,
+    background 0.1s;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -166,7 +172,8 @@
   font-family: var(--font-ui);
   font-size: 0.6rem;
   font-weight: bold;
-  color: var(--bg-mid);
+  color: var(--text-types);
+  opacity: 0.7;
   letter-spacing: 2px;
   text-transform: uppercase;
   padding: 0.4rem 0.75rem;
@@ -218,7 +225,7 @@
 .rowName {
   font-family: var(--font-body);
   font-size: 0.8rem;
-  color: var(--text);
+  color: var(--text-names);
   transition: color 0.1s;
   vertical-align: middle;
 }
@@ -274,8 +281,13 @@
 }
 
 @keyframes blink {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0; }
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
 }
 
 .empty {

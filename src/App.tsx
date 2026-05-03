@@ -1,7 +1,9 @@
 import { useEffect, useSyncExternalStore } from "react";
 import { AnimatePresence, motion } from "motion/react";
+import { useShallow } from "zustand/react/shallow";
 import { useWindowStore } from "./store/window-store";
 import { useBootStore } from "./store/boot-store";
+import { useMusicStore } from "./store/music-store";
 import { Window } from "./components/window/window";
 import { Topbar } from "./components/topbar/topbar";
 import { Dock } from "./components/dock/dock";
@@ -23,11 +25,22 @@ function useIsPortrait() {
   );
 }
 
+function WindowById({ id }: { id: string }) {
+  const windowData = useWindowStore(
+    useShallow((state) => state.windows.find((w) => w.id === id)),
+  );
+  if (!windowData) return null;
+  return <Window data={windowData} />;
+}
+
 function App() {
-  const windows = useWindowStore((state) => state.windows);
+  const windowIds = useWindowStore(
+    useShallow((state) => state.windows.map((w) => w.id)),
+  );
   const addWindow = useWindowStore((state) => state.addWindow);
   const clearFocus = useWindowStore((state) => state.clearFocus);
   const isDone = useBootStore((state) => state.isDone);
+  const hasStartedMusic = useMusicStore((state) => state.hasStartedMusic);
   const isPortrait = useIsPortrait();
 
   useEffect(() => {
@@ -60,7 +73,7 @@ function App() {
                 PSYCHOS mobile is loading in the void. Be patient.
               </span>
             </p>
-            <div className={styles.portraitCursor}>▮</div>
+            <div className={styles.portraitCode}>▮</div>
           </div>
           <div className={styles.portraitScanlines} aria-hidden="true" />
         </div>
@@ -79,14 +92,21 @@ function App() {
             onClick={() => clearFocus()}
           >
             <Wallpaper />
-            <GlobalPlayer />
+            {hasStartedMusic && <GlobalPlayer />}
             <Topbar />
 
             <div
-              style={{ position: "absolute", top: 28, bottom: 0, left: 0, right: 0, overflow: "hidden" }}
+              style={{
+                position: "absolute",
+                top: 28,
+                bottom: 0,
+                left: 0,
+                right: 0,
+                overflow: "hidden",
+              }}
             >
-              {windows.map((window) => (
-                <Window key={window.id} data={window} />
+              {windowIds.map((id) => (
+                <WindowById key={id} id={id} />
               ))}
             </div>
 

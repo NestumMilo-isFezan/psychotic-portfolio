@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useCallback } from "react";
+import React, { useState, useEffect, useRef, useCallback, useMemo } from "react";
 import { marked } from "marked";
 import { FaFileLines, FaTrashCan } from "react-icons/fa6";
 import { FaChevronLeft } from "react-icons/fa6";
@@ -153,11 +153,7 @@ export const TrashApp: React.FC<AppProps> = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  <tr
-                    className={styles.fileRow}
-                    onClick={openNovel}
-                    data-cursor-mode="pointer"
-                  >
+                  <tr className={styles.fileRow} onClick={openNovel} data-cursor-mode="pointer">
                     <td className={styles.colName}>
                       <span className={styles.rowIcon}>
                         <FaFileLines size={14} />
@@ -178,8 +174,14 @@ export const TrashApp: React.FC<AppProps> = () => {
   }
 
   // ── READER VIEW ──
-  const beforeHtml = content ? (marked.parse(splitContent(content).before) as string) : "";
-  const afterHtml = content ? (marked.parse(splitContent(content).after) as string) : "";
+  const { beforeHtml, afterHtml } = useMemo(() => {
+    if (!content) return { beforeHtml: "", afterHtml: "" };
+    const { before, after } = splitContent(content);
+    return {
+      beforeHtml: marked.parse(before) as string,
+      afterHtml: after ? (marked.parse(after) as string) : "",
+    };
+  }, [content]);
 
   return (
     <div className={`${styles.container} ${isGlitching ? styles.glitching : ""}`}>
@@ -228,7 +230,9 @@ export const TrashApp: React.FC<AppProps> = () => {
           <div className={styles.purgeText}>&gt; NEURAL LINK SEVERED</div>
           <div className={styles.rebootLines}>
             {REBOOT_LINES.slice(0, visibleRebootLines).map((line, i) => (
-              <div key={i} className={styles.rebootLine}>{line}</div>
+              <div key={i} className={styles.rebootLine}>
+                {line}
+              </div>
             ))}
           </div>
         </div>

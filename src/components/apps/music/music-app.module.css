@@ -77,8 +77,13 @@
 }
 
 @keyframes blink {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0; }
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
 }
 
 /* ── DECK (artwork + controls) ── */
@@ -152,7 +157,7 @@
   font-weight: bold;
   letter-spacing: 1.5px;
   text-align: center;
-  color: var(--bg-darkest);
+  color: var(--text-badge);
   background: var(--cyan);
   padding: 2px 0;
 }
@@ -223,13 +228,17 @@
   align-items: center;
   justify-content: center;
   box-shadow: 1px 1px 0 var(--purple);
-  transition: border-color 0.15s, box-shadow 0.15s;
+  transition:
+    border-color 0.15s,
+    box-shadow 0.15s;
 }
 
 .controlBtn:hover:not(:disabled) {
   border-color: var(--cyan);
   color: var(--cyan);
-  box-shadow: 1px 1px 0 var(--cyan), 0 0 6px rgba(0, 229, 255, 0.3);
+  box-shadow:
+    1px 1px 0 var(--cyan),
+    0 0 6px rgba(0, 229, 255, 0.3);
 }
 
 .controlBtn:active:not(:disabled) {
@@ -244,7 +253,7 @@
 .playBtn {
   background: var(--pink);
   border: 2px solid var(--cyan);
-  color: var(--bg-darkest);
+  color: var(--text-badge);
   width: 42px;
   height: 42px;
   display: flex;
@@ -363,7 +372,7 @@
   font-family: var(--font-data);
   font-size: 0.62rem;
   font-weight: bold;
-  color: var(--bg-darkest);
+  color: var(--text-badge);
   background: var(--yellow);
   padding: 0.1rem 0.45rem;
   letter-spacing: 1px;
@@ -383,13 +392,17 @@
   align-items: center;
   gap: 0.35rem;
   box-shadow: 1px 1px 0 var(--purple);
-  transition: border-color 0.15s, box-shadow 0.15s;
+  transition:
+    border-color 0.15s,
+    box-shadow 0.15s;
 }
 
 .refreshBtn:hover:not(:disabled) {
   border-color: var(--cyan);
   color: var(--cyan);
-  box-shadow: 1px 1px 0 var(--cyan), 0 0 6px rgba(0, 229, 255, 0.2);
+  box-shadow:
+    1px 1px 0 var(--cyan),
+    0 0 6px rgba(0, 229, 255, 0.2);
 }
 
 .refreshBtn:disabled {
@@ -415,19 +428,27 @@
   border-left: 3px solid var(--purple);
   padding: 0.5rem 0.65rem 0.5rem 0.5rem;
   box-shadow: 2px 2px 0 var(--purple);
-  transition: border-color 0.15s, box-shadow 0.15s;
+  transition:
+    border-color 0.15s,
+    box-shadow 0.15s;
+  content-visibility: auto;
+  contain-intrinsic-size: auto 56px;
 }
 
 .trackItem:hover {
   border-color: var(--cyan);
   border-left-color: var(--cyan);
-  box-shadow: 2px 2px 0 var(--cyan), 0 0 8px rgba(0, 229, 255, 0.15);
+  box-shadow:
+    2px 2px 0 var(--cyan),
+    0 0 8px rgba(0, 229, 255, 0.15);
 }
 
 .activeTrack {
   border-left-color: var(--cyan);
   border-color: var(--cyan);
-  box-shadow: 2px 2px 0 var(--cyan), 0 0 10px rgba(0, 229, 255, 0.2);
+  box-shadow:
+    2px 2px 0 var(--cyan),
+    0 0 10px rgba(0, 229, 255, 0.2);
 }
 
 /* ── TRACK THUMBNAIL ── */
@@ -507,7 +528,7 @@
   font-family: var(--font-data);
   font-size: 0.6rem;
   font-weight: bold;
-  color: var(--bg-darkest);
+  color: var(--text-badge);
   background: var(--yellow);
   padding: 0.1rem 0.4rem;
   letter-spacing: 1px;
@@ -532,6 +553,10 @@
 }
 
 @keyframes rotate {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }

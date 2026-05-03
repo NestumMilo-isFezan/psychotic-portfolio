@@ -18,9 +18,7 @@ const SKILLS = ["Docker", "Linux", "DevOps Engineering", "System Design", "AI", 
 
 const DATABASES = ["PostgreSQL", "MySQL", "MariaDB", "SQLite"];
 
-const CERTS = [
-  { name: "Fundamentals of DevOps", issuer: "Linux Foundation" },
-];
+const CERTS = [{ name: "Fundamentals of DevOps", issuer: "Linux Foundation" }];
 
 const SectionDivider: React.FC<{ title: string }> = ({ title }) => (
   <div className={styles.divider}>
@@ -30,7 +28,11 @@ const SectionDivider: React.FC<{ title: string }> = ({ title }) => (
   </div>
 );
 
-const StatBar: React.FC<{ label: string; months: number; display: string }> = ({ label, months, display }) => {
+const StatBar: React.FC<{ label: string; months: number; display: string }> = ({
+  label,
+  months,
+  display,
+}) => {
   const filled = Math.round((months / MAX_MONTHS) * 10);
   const empty = 10 - filled;
   return (
@@ -71,11 +73,7 @@ export const ProfileApp: React.FC<AppProps> = () => {
           data-cursor-mode="pointer"
           title="View photo"
         >
-          <img
-            src="/profile/my-profile-pic.jpg"
-            alt="Nurahfezan Nordin"
-            className={styles.photo}
-          />
+          <img src="/profile/my-profile-pic.jpg" alt="Nurahfezan Nordin" className={styles.photo} />
           <div className={styles.scanlines} aria-hidden="true" />
           <div className={styles.photoHint}>[ CLICK ]</div>
         </div>
@@ -90,7 +88,9 @@ export const ProfileApp: React.FC<AppProps> = () => {
           </div>
           <div className={styles.statusLine}>
             <span className={styles.statusPrompt}>&gt;</span>
-            <span className={styles.statusText}>Crafting a cursed tome — Recommendation Knowledge Grimoire, powered by Rails</span>
+            <span className={styles.statusText}>
+              Crafting a cursed tome — Recommendation Knowledge Grimoire, powered by Rails
+            </span>
             <span className={styles.cursor}>▮</span>
           </div>
           <div className={styles.location}>⌖ Sabah, Malaysia</div>
@@ -100,8 +100,8 @@ export const ProfileApp: React.FC<AppProps> = () => {
       {/* ── ABOUT ── */}
       <SectionDivider title="ABOUT" />
       <p className={styles.about}>
-        Average tech enthusiast who loves anime cultures. Obsessed with building
-        systems that are both elegant and a little bit unhinged.
+        Average tech enthusiast who loves anime cultures. Obsessed with building systems that are
+        both elegant and a little bit unhinged.
       </p>
 
       {/* ── STATS ── */}
@@ -116,7 +116,9 @@ export const ProfileApp: React.FC<AppProps> = () => {
       <SectionDivider title="SKILLS & TOOLS" />
       <div className={styles.chips}>
         {SKILLS.map((s) => (
-          <span key={s} className={styles.chip}>{s}</span>
+          <span key={s} className={styles.chip}>
+            {s}
+          </span>
         ))}
       </div>
 
@@ -124,7 +126,9 @@ export const ProfileApp: React.FC<AppProps> = () => {
       <SectionDivider title="DATABASE STACK" />
       <div className={styles.chips}>
         {DATABASES.map((d) => (
-          <span key={d} className={`${styles.chip} ${styles.chipDb}`}>{d}</span>
+          <span key={d} className={`${styles.chip} ${styles.chipDb}`}>
+            {d}
+          </span>
         ))}
       </div>
 

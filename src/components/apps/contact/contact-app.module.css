@@ -66,8 +66,13 @@
 }
 
 @keyframes blink {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0; }
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
 }
 
 /* ── GRID ── */
@@ -89,7 +94,10 @@
   box-shadow: 2px 2px 0 var(--bg-mid);
   text-decoration: none;
   color: inherit;
-  transition: border-color 0.15s, box-shadow 0.15s, background 0.15s;
+  transition:
+    border-color 0.15s,
+    box-shadow 0.15s,
+    background 0.15s;
   position: relative;
   overflow: hidden;
 }
@@ -110,7 +118,9 @@
 
 .card:hover {
   border-color: var(--card-accent, var(--cyan));
-  box-shadow: 2px 2px 0 var(--card-accent, var(--cyan)), 0 0 10px rgba(0, 229, 255, 0.15);
+  box-shadow:
+    2px 2px 0 var(--card-accent, var(--cyan)),
+    0 0 10px rgba(0, 229, 255, 0.15);
 }
 
 /* ── CARD ICON ── */
@@ -156,7 +166,9 @@
   font-size: 1.1rem;
   color: var(--card-accent, var(--bg-mid));
   opacity: 0.5;
-  transition: opacity 0.15s, transform 0.15s;
+  transition:
+    opacity 0.15s,
+    transform 0.15s;
   line-height: 1;
 }
 

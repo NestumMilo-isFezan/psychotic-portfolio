@@ -1,12 +1,15 @@
 import { create } from "zustand";
 
-export interface WindowData {
-  id: string;
-  title: string;
+export interface WindowLayout {
   x: number;
   y: number;
   width: number | string;
   height: number | string;
+}
+
+export interface WindowData {
+  id: string;
+  title: string;
   z: number;
   focused: boolean;
   minimized?: boolean;
@@ -17,8 +20,9 @@ export interface WindowData {
 
 interface WindowState {
   windows: WindowData[];
+  layouts: Record<string, WindowLayout>;
   maxZ: number;
-  addWindow: (window: Omit<WindowData, "z" | "focused">) => void;
+  addWindow: (window: Omit<WindowData, "z" | "focused"> & WindowLayout) => void;
   closeWindow: (id: string) => void;
   focusWindow: (id: string) => void;
   minimizeWindow: (id: string) => void;
@@ -29,11 +33,15 @@ interface WindowState {
 
 export const useWindowStore = create<WindowState>((set) => ({
   windows: [],
+  layouts: {},
   maxZ: 10,
   addWindow: (window) =>
     set((state) => {
       const exists = state.windows.some((w) => w.id === window.id);
       const newZ = state.maxZ + 1;
+
+      const { x, y, width, height, ...lifecycle } = window;
+      const layout: WindowLayout = { x, y, width, height };
 
       if (exists) {
         return {
@@ -42,6 +50,10 @@ export const useWindowStore = create<WindowState>((set) => ({
               ? { ...w, z: newZ, focused: true, minimized: false }
               : { ...w, focused: false },
           ),
+          layouts: {
+            ...state.layouts,
+            [window.id]: layout,
+          },
           maxZ: newZ,
         };
       }
@@ -49,15 +61,23 @@ export const useWindowStore = create<WindowState>((set) => ({
       return {
         windows: [
           ...state.windows.map((w) => ({ ...w, focused: false })),
-          { ...window, z: newZ, focused: true, minimized: false },
+          { ...lifecycle, z: newZ, focused: true, minimized: false },
         ],
+        layouts: {
+          ...state.layouts,
+          [window.id]: layout,
+        },
         maxZ: newZ,
       };
     }),
   closeWindow: (id) =>
-    set((state) => ({
-      windows: state.windows.filter((w) => w.id !== id),
-    })),
+    set((state) => {
+      const { [id]: _, ...remainingLayouts } = state.layouts;
+      return {
+        windows: state.windows.filter((w) => w.id !== id),
+        layouts: remainingLayouts,
+      };
+    }),
   focusWindow: (id) =>
     set((state) => {
       const newZ = state.maxZ + 1;
@@ -81,11 +101,23 @@ export const useWindowStore = create<WindowState>((set) => ({
       windows: state.windows.map((w) => ({ ...w, focused: false })),
     })),
   updatePosition: (id, x, y) =>
-    set((state) => ({
-      windows: state.windows.map((w) => (w.id === id ? { ...w, x, y } : w)),
-    })),
+    set((state) => {
+      if (!state.layouts[id]) return state;
+      return {
+        layouts: {
+          ...state.layouts,
+          [id]: { ...state.layouts[id], x, y },
+        },
+      };
+    }),
   updateSize: (id, width, height) =>
-    set((state) => ({
-      windows: state.windows.map((w) => (w.id === id ? { ...w, width, height } : w)),
-    })),
+    set((state) => {
+      if (!state.layouts[id]) return state;
+      return {
+        layouts: {
+          ...state.layouts,
+          [id]: { ...state.layouts[id], width, height },
+        },
+      };
+    }),
 }));

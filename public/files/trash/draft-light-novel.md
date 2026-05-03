@@ -1,6 +1,6 @@
 # DRAFT — The Psychotic NEET Who Got Isekai'd Into an Otome Soulslike and Became a Mob Character With an Accidental Harem
 
-*[DRAFT v0.9 — DO NOT DISTRIBUTE — personal archive]*
+_[DRAFT v0.9 — DO NOT DISTRIBUTE — personal archive]_
 
 ---
 
@@ -8,13 +8,13 @@
 
 Kazuya Mishiro was, by all objective measures, a complete waste of human potential.
 
-Twenty-three years old. Unwashed hoodie. Seventeen empty cans of *Chaos Energy MAX* arranged in a perfect defensive perimeter around his gaming chair. His room smelled like ambition that had curdled into something more honest.
+Twenty-three years old. Unwashed hoodie. Seventeen empty cans of _Chaos Energy MAX_ arranged in a perfect defensive perimeter around his gaming chair. His room smelled like ambition that had curdled into something more honest.
 
 He had not left the apartment in eleven days.
 
-This was fine. This was *optimal*. The outside world was a poorly designed game with no save points and terrible loot. He had no patience for it.
+This was fine. This was _optimal_. The outside world was a poorly designed game with no save points and terrible loot. He had no patience for it.
 
-What he *did* have patience for was **ELDEN ROSÉ: Villainess of Ruin** — the impossible crossover that the internet had unanimously declared "could not possibly be real." An otome visual novel with full soulslike combat. Multiple heroine routes. Punishing difficulty. A fanbase that spoke in hushed, traumatized tones.
+What he _did_ have patience for was **ELDEN ROSÉ: Villainess of Ruin** — the impossible crossover that the internet had unanimously declared "could not possibly be real." An otome visual novel with full soulslike combat. Multiple heroine routes. Punishing difficulty. A fanbase that spoke in hushed, traumatized tones.
 
 He had bought it as a joke.
 
@@ -36,7 +36,7 @@ Then he was not in his room anymore.
 
 The first thing he noticed was that the sky was the wrong color.
 
-Purple. Not a nice purple. A *threatening* purple, like the sky had made several poor life decisions and was now daring you to comment on it.
+Purple. Not a nice purple. A _threatening_ purple, like the sky had made several poor life decisions and was now daring you to comment on it.
 
 The second thing he noticed was the girl standing over him with a sword.
 
@@ -46,7 +46,7 @@ She had silver hair, violet eyes, and the particular expression of someone who h
 
 "Me," Kazuya agreed, still processing the sky situation.
 
-"You are *Mob Character Seven*," she said. The capital letters were audible. "The background peasant who exists to be cut down in my route's inciting incident."
+"You are _Mob Character Seven_," she said. The capital letters were audible. "The background peasant who exists to be cut down in my route's inciting incident."
 
 Kazuya sat up slowly. He recognized her immediately. **Seraphine Voss** — the primary villainess of ELDEN ROSÉ. Ice-type. Tragic backstory involving a cursed bloodline. Four possible endings depending on the player's karma score, ranging from "redemption arc" to "she personally executes you while crying."
 
@@ -66,13 +66,13 @@ She stared at him for a very long time.
 
 ## Chapter 2: The Harem Begins (Against Everyone's Wishes, Including His)
 
-The problem with being a mob character in a world with game logic was that the game logic did not *stop* running just because you were anomalous.
+The problem with being a mob character in a world with game logic was that the game logic did not _stop_ running just because you were anomalous.
 
 By the end of the first week, Kazuya had accidentally:
 
 - Saved Seraphine from an assassination attempt by tripping over a cobblestone at the exact right moment
 - Tutored **Lira Ashveil** (the bookworm route's heroine) in "otherworld combat philosophy," which was just him describing Dark Souls lore with alarming intensity
-- Become the first person in recorded history to make **Duchess Morrigan Vayle** (the villainess-route villainess, the *other* one, more evil) laugh
+- Become the first person in recorded history to make **Duchess Morrigan Vayle** (the villainess-route villainess, the _other_ one, more evil) laugh
 - Gotten into a staring contest with **Yuki** (the silent shrine maiden heroine) and won, which apparently constituted a marriage proposal in her culture
 
 None of this was intentional.
@@ -81,7 +81,7 @@ All of it had raised his affection flags with four different women simultaneousl
 
 The game, operating on its original logic, was trying very hard to reconcile this with its existing route structures. It was failing. Error messages that only Kazuya could see flickered at the corners of his vision:
 
-> *[ROUTE CONFLICT: Cannot process simultaneous S-rank affection from Heroine_01, Heroine_02, Villain_01, Villain_02. Running contingency protocol: CHAOS_MODE.]*
+> _[ROUTE CONFLICT: Cannot process simultaneous S-rank affection from Heroine_01, Heroine_02, Villain_01, Villain_02. Running contingency protocol: CHAOS_MODE.]_
 
 "Great," he muttered.
 
@@ -113,7 +113,7 @@ He had caused an academic revolution by rambling.
 
 The game kept generating error messages. Kazuya kept ignoring them.
 
-> *[WARNING: CHAOS_MODE threshold at 67%. Narrative coherence degrading. Heroine stability: fluctuating.]*
+> _[WARNING: CHAOS_MODE threshold at 67%. Narrative coherence degrading. Heroine stability: fluctuating.]_
 
 He closed the notification.
 
@@ -121,7 +121,7 @@ He closed the notification.
 
 ## Chapter 4: The Part Where Things Get Complicated
 
-The problem was the *ending*.
+The problem was the _ending_.
 
 Kazuya understood soulslike games. He understood that the beautiful, terrible thing about them was that they didn't care about your feelings. The story would go where the story went. The boss would kill you twenty times and not feel bad about it. The ending would be what it was whether you were ready or not.
 
@@ -133,13 +133,13 @@ It was around month five that he started noticing the signs. The way the sky wen
 
 The way Yuki had made him twelve pairs of socks now.
 
-> *[CHAOS_MODE threshold at 89%. Heroine convergence imminent. Recommend immediate route resolution.]*
+> _[CHAOS_MODE threshold at 89%. Heroine convergence imminent. Recommend immediate route resolution.]_
 
 "Route resolution," Kazuya said quietly.
 
 In the game, that was a technical term.
 
-It meant: *someone dies.*
+It meant: _someone dies._
 
 In a harem route where all heroines had maxed affection scores and no clear winner, in a game running on soulslike logic—
 
@@ -165,11 +165,11 @@ The sky was the wrong purple.
 
 It was the most right the sky had ever looked.
 
-> *[CHAOS_MODE threshold: 99%. Final convergence: IMMINENT.]*
+> _[CHAOS_MODE threshold: 99%. Final convergence: IMMINENT.]_
 
 Kazuya looked at the four of them.
 
-He thought: *if this is the end of the good part, at least the good part was good.*
+He thought: _if this is the end of the good part, at least the good part was good._
 
 "Hey," he said.
 
@@ -221,10 +221,10 @@ Seraphine moved first.
 
 ## ⚠ WARNING — MEMORY CORRUPTION DETECTED
 
-> *[SYSTEM ALERT: unauthorized emotional subroutine detected in narrative buffer]*
-> *[CHAOS_MODE threshold: EXCEEDED]*
-> *[COHERENCE: NULL]*
-> *[PURGING...]*
+> _[SYSTEM ALERT: unauthorized emotional subroutine detected in narrative buffer]_
+> _[CHAOS_MODE threshold: EXCEEDED]_
+> _[COHERENCE: NULL]_
+> _[PURGING...]_
 
 **THIS SECTION OF THE FILE HAS BEEN FLAGGED FOR DELETION**
 
@@ -250,6 +250,6 @@ Seraphine moved first.
 
 ̷̰͎̖̋̕[̶̹͙̈̊͝ ̵̞̘͎̥̃̅M̸̺̤̾͒É̷̥͕͇̙̔M̸̺͒͋Ò̷͚͓͊̈́R̷̗̈́͗̏Y̸͖͋̿͠ ̷̱̹͑̄̅D̵̡̡̦̿E̵͕̽̄Ĺ̸̢̲̼̤È̷͓̳̱̏T̸͎̥͊̄͐I̴̙͍͔̐͋N̶̖̉G̸̱̓ ̷̩͐̈ͅ]̴̡̠͊̊̔
 
-> *[ NEURAL LINK: SEVERED ]*
-> *[ THIS FILE WILL BE DELETED FROM THE SYSTEM ]*
-> *[ IF YOU ARE READING THIS: IT IS TOO LATE ]*
+> _[ NEURAL LINK: SEVERED ]_
+> _[ THIS FILE WILL BE DELETED FROM THE SYSTEM ]_
+> _[ IF YOU ARE READING THIS: IT IS TOO LATE ]_

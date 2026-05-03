@@ -14,13 +14,17 @@ interface MusicState {
   streamLoadingTrackId: string | null;
   error: string | null;
   seekTarget: number | null;
+  isSeeking: boolean;
+  hasStartedMusic: boolean;
 
   // Actions
+  setHasStartedMusic: (hasStarted: boolean) => void;
   playTrack: (track: MusicItem, queue?: MusicItem[], startIndex?: number) => void;
   togglePlayPause: () => void;
   playNext: () => void;
   playPrevious: () => void;
   seek: (time: number) => void;
+  setSeeking: (isSeeking: boolean) => void;
   clearSeekTarget: () => void;
   setVolume: (volume: number) => void;
   clearPlayer: () => void;
@@ -44,23 +48,30 @@ export const useMusicStore = create<MusicState>((set, get) => ({
   streamLoadingTrackId: null,
   error: null,
   seekTarget: null,
+  isSeeking: false,
+  hasStartedMusic: false,
 
+  setHasStartedMusic: (hasStartedMusic) => set({ hasStartedMusic }),
   setStatus: (status) =>
     set((state) => ({
       status,
       streamLoadingTrackId: status === "playing" ? null : state.streamLoadingTrackId,
     })),
   setDuration: (duration) => set({ duration }),
-  updateProgress: (currentTime) => set({ currentTime }),
+  updateProgress: (currentTime) => {
+    if (!get().isSeeking) {
+      set({ currentTime });
+    }
+  },
   setError: (error) => set({ error, streamLoadingTrackId: null, status: error ? "error" : "idle" }),
 
   playTrack: (track, queue, startIndex) => {
     const state = get();
 
     if (state.currentTrack?.id === track.id) {
-      // Same track re-selected: resume if paused, and optionally update the queue context
-      if (state.status === "paused") {
-        set({ status: "playing" });
+      // Same track re-selected: resume if paused, retry if error/idle
+      if (state.status === "paused" || state.status === "error" || state.status === "idle") {
+        set({ status: "playing", error: null, streamLoadingTrackId: track.id, hasStartedMusic: true });
       }
       if (queue && queue.length > 0) {
         set({ queue, currentIndex: startIndex ?? queue.findIndex((item) => item.id === track.id) });
@@ -82,6 +93,7 @@ export const useMusicStore = create<MusicState>((set, get) => ({
       error: null,
       seekTarget: null,
       streamLoadingTrackId: track.id,
+      hasStartedMusic: true,
     });
   },
 
@@ -98,7 +110,7 @@ export const useMusicStore = create<MusicState>((set, get) => ({
 
   togglePlayPause: () => {
     const { status } = get();
-    set({ status: status === "playing" ? "paused" : "playing" });
+    set({ status: status === "playing" ? "paused" : "playing", hasStartedMusic: true });
   },
 
   playNext: () => {
@@ -127,6 +139,8 @@ export const useMusicStore = create<MusicState>((set, get) => ({
     set({ seekTarget: time, currentTime: time });
   },
 
+  setSeeking: (isSeeking) => set({ isSeeking }),
+
   clearSeekTarget: () => set({ seekTarget: null }),
 
   setVolume: (volume) => set({ volume }),
@@ -142,6 +156,7 @@ export const useMusicStore = create<MusicState>((set, get) => ({
       streamLoadingTrackId: null,
       error: null,
       seekTarget: null,
+      isSeeking: false,
     });
   },
 }));

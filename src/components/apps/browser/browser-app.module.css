@@ -153,7 +153,7 @@
 
 .rerollBtn:hover {
   background: var(--cyan);
-  color: var(--bg-darkest);
+  color: var(--text-badge);
   box-shadow: 2px 2px 0 var(--purple);
 }
 
@@ -174,8 +174,12 @@
 }
 
 @keyframes spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .spinning {
@@ -199,7 +203,9 @@
   border-left: 3px solid var(--cyan);
   font-size: 0.82rem;
   line-height: 1.4;
-  transition: border-color 0.15s, background 0.15s;
+  transition:
+    border-color 0.15s,
+    background 0.15s;
 }
 
 .statusItem:hover {
@@ -259,15 +265,20 @@
 }
 
 @keyframes blink {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0; }
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
 }
 
 .ctaBtn {
   font-family: var(--font-ui);
   font-size: 0.8rem;
   background: var(--pink);
-  color: var(--bg-darkest);
+  color: var(--text-badge);
   border: 2px solid var(--cyan);
   padding: 0.45rem 1.25rem;
   font-weight: bold;
@@ -282,7 +293,7 @@
   background: var(--cyan);
   border-color: var(--pink);
   box-shadow: 3px 3px 0 var(--yellow);
-  color: var(--bg-darkest);
+  color: var(--text-badge);
 }
 
 .ctaBtn:active {

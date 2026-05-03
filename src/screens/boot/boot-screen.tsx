@@ -3,7 +3,6 @@ import { motion, AnimatePresence } from "motion/react";
 import { useBootStore } from "@/store/boot-store";
 import styles from "./boot-screen.module.css";
 
-
 export const BootScreen = () => {
   const progress = useBootStore((state) => state.progress);
   const statusText = useBootStore((state) => state.statusText);

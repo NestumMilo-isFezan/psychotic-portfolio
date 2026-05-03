@@ -54,25 +54,25 @@ app.get("/api/files", async (c) => {
         entries
           .filter((entry) => !(entry.isDirectory() && HIDDEN_DIRS.has(entry.name)))
           .map(async (entry) => {
-          const fullPath = join(dir, entry.name);
-          const relPath = join(relativePath, entry.name).replace(/\\/g, "/");
+            const fullPath = join(dir, entry.name);
+            const relPath = join(relativePath, entry.name).replace(/\\/g, "/");
 
-          if (entry.isDirectory()) {
-            return {
-              name: entry.name,
-              type: "folder" as const,
-              path: `/${relPath}`,
-              contents: await scan(fullPath, relPath),
-            };
-          } else {
-            return {
-              name: entry.name,
-              type: "file" as const,
-              extension: extname(entry.name).slice(1).toLowerCase(),
-              path: `/files/${relPath}`,
-            };
-          }
-        }),
+            if (entry.isDirectory()) {
+              return {
+                name: entry.name,
+                type: "folder" as const,
+                path: `/${relPath}`,
+                contents: await scan(fullPath, relPath),
+              };
+            } else {
+              return {
+                name: entry.name,
+                type: "file" as const,
+                extension: extname(entry.name).slice(1).toLowerCase(),
+                path: `/files/${relPath}`,
+              };
+            }
+          }),
       );
       return items;
     } catch {
@@ -150,5 +150,8 @@ app.get("/api/ytm/history", async (c) => {
     return c.json({ error: "Failed to fetch music history", details: String(error) }, 500);
   }
 });
+
+// Eager initialization on startup
+void ensureInitialized();
 
 export default app;
