@@ -1,0 +1,117 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: var(--bg-darkest);
+  overflow: hidden;
+  position: relative;
+}
+
+/* Scanline overlay on the whole container */
+.container::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent 0px,
+    transparent 3px,
+    rgba(0, 0, 0, 0.12) 3px,
+    rgba(0, 0, 0, 0.12) 4px
+  );
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* ── IMAGE AREA ── */
+.imageArea {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  padding: 1rem;
+}
+
+/* ── IMAGE WRAPPER ── */
+.imageWrapper {
+  max-width: 100%;
+  max-height: 100%;
+  border: 2px solid var(--cyan);
+  box-shadow:
+    0 0 12px var(--cyan),
+    0 0 24px rgba(0, 229, 255, 0.2),
+    inset 0 0 6px rgba(0, 229, 255, 0.05);
+  position: relative;
+  background: #000;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.visible {
+  opacity: 1;
+}
+
+.image {
+  display: block;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+/* ── PATH BAR ── */
+.pathBar {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.3rem 0.75rem;
+  background: var(--bg-dark);
+  border-top: 1px solid var(--bg-mid);
+  flex-shrink: 0;
+  z-index: 3;
+}
+
+.pathBarDecoLeft {
+  color: var(--cyan);
+  font-size: 0.6rem;
+  opacity: 0.7;
+}
+
+.pathBarDecoRight {
+  color: var(--pink);
+  font-size: 0.6rem;
+  opacity: 0.7;
+}
+
+.pathBarName {
+  font-family: var(--font-data);
+  font-size: 0.65rem;
+  color: var(--text);
+  opacity: 0.55;
+  letter-spacing: 1px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ── PLACEHOLDER ── */
+.placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.3rem;
+  height: 100%;
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  color: var(--cyan);
+  opacity: 0.5;
+}
+
+.placeholderCursor {
+  animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}

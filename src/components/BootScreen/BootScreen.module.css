@@ -1,0 +1,128 @@
+.container {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 28px;
+  max-width: 800px;
+  width: 100%;
+  padding: 0 24px;
+}
+
+/* ── LOGO ── */
+.logo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.logoText {
+  font-family: var(--font-header);
+  font-size: clamp(48px, 10vw, 96px);
+  font-weight: 700;
+  letter-spacing: 12px;
+  color: var(--cyan);
+  text-transform: uppercase;
+  text-shadow:
+    0 0 10px var(--cyan),
+    0 0 30px rgba(0, 229, 255, 0.5),
+    0 0 60px rgba(0, 229, 255, 0.2),
+    4px 4px 0px var(--purple);
+  line-height: 1;
+}
+
+
+.version {
+  font-family: var(--font-body);
+  font-size: 11px;
+  color: var(--purple);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  opacity: 0.8;
+}
+
+/* ── PROGRESS ── */
+.progressSection {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.progressBar {
+  font-family: var(--font-body);
+  font-size: 13px;
+  color: var(--cyan);
+  text-shadow: 0 0 6px var(--cyan);
+  letter-spacing: 1px;
+  word-break: break-all;
+}
+
+.progressPct {
+  font-family: var(--font-body);
+  font-size: 11px;
+  color: var(--purple);
+  letter-spacing: 3px;
+}
+
+/* ── STATUS TEXT ── */
+.statusWrapper {
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.statusText {
+  font-family: var(--font-body);
+  font-size: 13px;
+  color: var(--text);
+  letter-spacing: 1px;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  white-space: nowrap;
+}
+
+.prompt {
+  color: var(--pink);
+}
+
+.cursor {
+  color: var(--cyan);
+  animation: blink 1s step-end infinite;
+  margin-left: 4px;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* ── SCANLINES ── */
+.scanlines {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent 0px,
+    transparent 2px,
+    rgba(0, 0, 0, 0.15) 2px,
+    rgba(0, 0, 0, 0.15) 4px
+  );
+  z-index: 1;
+}

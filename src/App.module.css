@@ -1,0 +1,85 @@
+.portraitBlock {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  background: var(--bg-darkest);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.portraitInner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  padding: 32px 24px;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+}
+
+.portraitLogo {
+  font-family: var(--font-header);
+  font-size: clamp(36px, 12vw, 64px);
+  font-weight: 700;
+  letter-spacing: 10px;
+  color: var(--cyan);
+  text-shadow:
+    0 0 10px var(--cyan),
+    0 0 30px rgba(0, 229, 255, 0.4),
+    4px 4px 0px var(--purple);
+  line-height: 1;
+}
+
+.portraitCode {
+  font-family: var(--font-body);
+  font-size: 11px;
+  color: var(--pink);
+  letter-spacing: 2px;
+  text-shadow: 0 0 6px var(--pink);
+}
+
+.portraitMsg {
+  font-family: var(--font-body);
+  font-size: 13px;
+  color: var(--text);
+  line-height: 1.9;
+  letter-spacing: 0.5px;
+  max-width: 320px;
+}
+
+.portraitSub {
+  display: inline-block;
+  margin-top: 10px;
+  color: var(--purple);
+  font-size: 11px;
+  letter-spacing: 1px;
+  opacity: 0.8;
+}
+
+.portraitCursor {
+  color: var(--cyan);
+  font-size: 18px;
+  animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.portraitScanlines {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent 0px,
+    transparent 2px,
+    rgba(0, 0, 0, 0.15) 2px,
+    rgba(0, 0, 0, 0.15) 4px
+  );
+  z-index: 0;
+}

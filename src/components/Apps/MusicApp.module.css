@@ -1,0 +1,537 @@
+/* ── CONTAINER ── */
+.container {
+  padding: 1.25rem;
+  color: var(--text);
+  font-family: var(--font-body);
+  background: var(--bg-window);
+  height: 100%;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--bg-mid) var(--bg-darkest);
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+/* ── DIVIDER ── */
+.divider {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.4rem;
+}
+
+.dividerDecoLeft {
+  color: var(--cyan);
+  font-size: 0.7rem;
+  opacity: 0.7;
+}
+
+.dividerDecoRight {
+  color: var(--pink);
+  font-size: 0.7rem;
+  opacity: 0.7;
+}
+
+.dividerTitle {
+  font-family: var(--font-ui);
+  font-size: 0.78rem;
+  font-weight: bold;
+  color: var(--cyan);
+  letter-spacing: 3px;
+  text-shadow: 0 0 6px var(--cyan);
+  white-space: nowrap;
+}
+
+/* ── SUBTITLE ── */
+.subtitle {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-size: 0.75rem;
+  color: var(--text);
+  opacity: 0.65;
+  margin-bottom: 0.25rem;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.subtitlePrompt {
+  color: var(--yellow);
+  font-weight: bold;
+  flex-shrink: 0;
+}
+
+.subtitleText {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex: 1;
+  min-width: 0;
+}
+
+.subtitleCursor {
+  color: var(--cyan);
+  animation: blink 1s step-end infinite;
+  flex-shrink: 0;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* ── DECK (artwork + controls) ── */
+.deck {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+  background: var(--bg-dark);
+  border: 1px solid var(--bg-mid);
+  border-left: 3px solid var(--purple);
+  padding: 0.85rem;
+  box-shadow: 2px 2px 0 var(--purple);
+}
+
+/* ── ARTWORK ── */
+.artworkFrame {
+  position: relative;
+  flex-shrink: 0;
+  width: 110px;
+  height: 110px;
+  border: 2px solid var(--cyan);
+  box-shadow:
+    0 0 12px var(--cyan),
+    0 0 24px rgba(0, 229, 255, 0.2),
+    inset 0 0 6px var(--purple);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.artworkImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  filter: contrast(1.1) brightness(0.9) saturate(1.2);
+}
+
+.artworkFallback {
+  color: var(--cyan);
+  opacity: 0.4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+.scanlines {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent 0px,
+    transparent 2px,
+    rgba(0, 0, 0, 0.3) 2px,
+    rgba(0, 0, 0, 0.3) 4px
+  );
+  mix-blend-mode: multiply;
+}
+
+.statusBadgeOverlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  font-family: var(--font-data);
+  font-size: 0.6rem;
+  font-weight: bold;
+  letter-spacing: 1.5px;
+  text-align: center;
+  color: var(--bg-darkest);
+  background: var(--cyan);
+  padding: 2px 0;
+}
+
+/* ── DECK BODY ── */
+.deckBody {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+/* ── TRACK META ── */
+.trackMeta {
+  min-width: 0;
+}
+
+.nowPlayingLabel {
+  font-family: var(--font-data);
+  font-size: 0.6rem;
+  letter-spacing: 2px;
+  color: var(--text);
+  opacity: 0.45;
+  text-transform: uppercase;
+  margin-bottom: 0.2rem;
+}
+
+.nowPlayingTitle {
+  font-family: var(--font-header);
+  font-size: 0.95rem;
+  color: var(--cyan);
+  text-shadow:
+    2px 2px 0 var(--purple),
+    0 0 8px rgba(0, 229, 255, 0.4);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.nowPlayingArtist {
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  color: var(--text);
+  opacity: 0.6;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  letter-spacing: 0.5px;
+}
+
+/* ── TRANSPORT ── */
+.transport {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.controlBtn {
+  background: var(--bg-dark);
+  border: 1px solid var(--bg-mid);
+  color: var(--text);
+  width: 34px;
+  height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 1px 1px 0 var(--purple);
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.controlBtn:hover:not(:disabled) {
+  border-color: var(--cyan);
+  color: var(--cyan);
+  box-shadow: 1px 1px 0 var(--cyan), 0 0 6px rgba(0, 229, 255, 0.3);
+}
+
+.controlBtn:active:not(:disabled) {
+  transform: translate(1px, 1px);
+  box-shadow: none;
+}
+
+.controlBtn:disabled {
+  opacity: 0.3;
+}
+
+.playBtn {
+  background: var(--pink);
+  border: 2px solid var(--cyan);
+  color: var(--bg-darkest);
+  width: 42px;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  box-shadow: 3px 3px 0 var(--purple);
+  transition: all 0.1s;
+}
+
+.playBtn:hover:not(:disabled) {
+  background: var(--cyan);
+  border-color: var(--pink);
+  box-shadow: 3px 3px 0 var(--yellow);
+}
+
+.playBtn:active:not(:disabled) {
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0 var(--purple);
+}
+
+.playBtn:disabled {
+  opacity: 0.3;
+}
+
+/* ── PROGRESS ── */
+.progressSection {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.progressMeta {
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-data);
+  font-size: 0.65rem;
+  color: var(--text);
+  opacity: 0.5;
+}
+
+.queuePosition {
+  color: var(--yellow);
+  opacity: 1;
+}
+
+/* ── VOLUME ── */
+.volumeRow {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.65rem;
+  color: var(--text);
+  opacity: 0.6;
+}
+
+.volumeValue {
+  font-family: var(--font-data);
+  font-size: 0.62rem;
+  color: var(--yellow);
+  opacity: 1;
+  min-width: 2.2rem;
+  text-align: right;
+}
+
+/* ── SLIDER ── */
+.slider {
+  -webkit-appearance: none;
+  flex: 1;
+  height: 4px;
+  background: var(--bg-mid);
+  border: 1px solid var(--bg-mid);
+  outline: none;
+}
+
+.slider::-webkit-slider-runnable-track {
+  height: 4px;
+  background: linear-gradient(
+    to right,
+    var(--cyan) 0%,
+    var(--cyan) var(--progress, 0%),
+    var(--bg-mid) var(--progress, 0%)
+  );
+}
+
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 3px;
+  height: 12px;
+  background: var(--cyan);
+  margin-top: -4px;
+  box-shadow: 0 0 6px var(--cyan);
+}
+
+.slider:disabled {
+  opacity: 0.35;
+}
+
+/* ── BROWSER HEADER ROW ── */
+.browserHeaderRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-top: 0.4rem;
+}
+
+.browserMeta {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.countBadge {
+  font-family: var(--font-data);
+  font-size: 0.62rem;
+  font-weight: bold;
+  color: var(--bg-darkest);
+  background: var(--yellow);
+  padding: 0.1rem 0.45rem;
+  letter-spacing: 1px;
+  white-space: nowrap;
+}
+
+.refreshBtn {
+  background: transparent;
+  border: 1px solid var(--bg-mid);
+  color: var(--text);
+  font-family: var(--font-ui);
+  font-size: 0.65rem;
+  font-weight: bold;
+  letter-spacing: 1px;
+  padding: 0.2rem 0.55rem;
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  box-shadow: 1px 1px 0 var(--purple);
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.refreshBtn:hover:not(:disabled) {
+  border-color: var(--cyan);
+  color: var(--cyan);
+  box-shadow: 1px 1px 0 var(--cyan), 0 0 6px rgba(0, 229, 255, 0.2);
+}
+
+.refreshBtn:disabled {
+  opacity: 0.4;
+}
+
+/* ── TRACK LIST ── */
+.trackList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  padding-bottom: 0.5rem;
+}
+
+/* ── TRACK ITEM ── */
+.trackItem {
+  display: grid;
+  grid-template-columns: 44px 1fr auto;
+  gap: 0.6rem;
+  align-items: center;
+  background: var(--bg-dark);
+  border: 1px solid var(--bg-mid);
+  border-left: 3px solid var(--purple);
+  padding: 0.5rem 0.65rem 0.5rem 0.5rem;
+  box-shadow: 2px 2px 0 var(--purple);
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.trackItem:hover {
+  border-color: var(--cyan);
+  border-left-color: var(--cyan);
+  box-shadow: 2px 2px 0 var(--cyan), 0 0 8px rgba(0, 229, 255, 0.15);
+}
+
+.activeTrack {
+  border-left-color: var(--cyan);
+  border-color: var(--cyan);
+  box-shadow: 2px 2px 0 var(--cyan), 0 0 10px rgba(0, 229, 255, 0.2);
+}
+
+/* ── TRACK THUMBNAIL ── */
+.trackThumbnail {
+  position: relative;
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--bg-mid);
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.thumbnailImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.thumbnailOverlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(13, 10, 26, 0.65);
+  color: var(--cyan);
+  opacity: 0;
+  transition: opacity 0.15s;
+}
+
+.trackItem:hover .thumbnailOverlay,
+.activeTrack .thumbnailOverlay {
+  opacity: 1;
+}
+
+/* ── TRACK INFO ── */
+.trackInfo {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.trackName {
+  font-family: var(--font-ui);
+  font-size: 0.78rem;
+  font-weight: bold;
+  color: var(--text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  letter-spacing: 0.5px;
+}
+
+.activeTrack .trackName {
+  color: var(--cyan);
+  text-shadow: 0 0 4px var(--cyan);
+}
+
+.trackArtist {
+  font-family: var(--font-data);
+  font-size: 0.68rem;
+  color: var(--text);
+  opacity: 0.55;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ── TRACK STATUS ── */
+.trackStatus {
+  flex-shrink: 0;
+}
+
+.statusBadge {
+  font-family: var(--font-data);
+  font-size: 0.6rem;
+  font-weight: bold;
+  color: var(--bg-darkest);
+  background: var(--yellow);
+  padding: 0.1rem 0.4rem;
+  letter-spacing: 1px;
+  white-space: nowrap;
+}
+
+/* ── STATE MESSAGES ── */
+.stateMessage {
+  font-family: var(--font-data);
+  font-size: 0.78rem;
+  color: var(--text);
+  opacity: 0.5;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1rem 0;
+}
+
+/* ── SHARED ANIMATION ── */
+.refreshing {
+  animation: rotate 1.5s linear infinite;
+}
+
+@keyframes rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}

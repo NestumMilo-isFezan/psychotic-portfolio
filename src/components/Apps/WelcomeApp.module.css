@@ -1,0 +1,63 @@
+.container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  height: 100%;
+  overflow: hidden;
+}
+
+.leftPane {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 2rem 2.5rem;
+  border-right: 1px solid var(--bg-mid);
+  gap: 1.2rem;
+  background: var(--bg-dark);
+  box-shadow: inset 0 0 40px rgba(0, 229, 255, 0.04);
+}
+
+.nameBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.name {
+  font-family: var(--font-ui);
+  font-size: clamp(2.8rem, 5vw, 4.5rem);
+  font-weight: 700;
+  color: var(--cyan);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  line-height: 1.1;
+  text-shadow: 3px 3px 0 var(--purple);
+}
+
+.tagline {
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  color: var(--text);
+  line-height: 1.7;
+  opacity: 0.8;
+  max-width: 28ch;
+}
+
+.rightPane {
+  position: relative;
+  overflow: hidden;
+}
+
+.rightPane::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(191, 0, 255, 0.45) 0%, rgba(0, 229, 255, 0.35) 100%);
+  pointer-events: none;
+}
+
+.mountainImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}

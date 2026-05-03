@@ -1,0 +1,69 @@
+.topbar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 30px;
+  background: var(--bg-dark);
+  border-bottom: 2px solid var(--cyan);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+  z-index: 10000;
+  font-family: var(--font-ui);
+  font-size: 14px;
+  backdrop-filter: blur(12px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+  color: var(--text);
+}
+
+.left,
+.right {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.menuItem {
+  font-weight: 500;
+  transition: all 0.1s;
+  letter-spacing: 0.5px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  height: 100%;
+}
+
+.menuItem:hover {
+  color: var(--pink);
+  text-shadow: 1px 1px var(--purple);
+}
+
+.iconGroup {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.brand {
+  color: var(--cyan);
+  text-shadow: 2px 2px var(--purple);
+  font-family: var(--font-header);
+  font-size: 16px;
+  padding-right: 20px;
+  border-right: 1px solid var(--bg-mid);
+}
+
+.brand svg {
+  fill: currentColor;
+  stroke: none;
+}
+
+.activeTitle {
+  color: var(--text);
+  font-family: var(--font-header);
+  font-size: 13px;
+  letter-spacing: 1px;
+  opacity: 0.85;
+}

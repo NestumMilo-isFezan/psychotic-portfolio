@@ -1,0 +1,19 @@
+.battery {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-family: var(--font-ui);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--yellow);
+  letter-spacing: 0.5px;
+  transition: color 0.2s;
+}
+
+.charging {
+  color: var(--cyan);
+}
+
+.low {
+  color: var(--pink);
+}

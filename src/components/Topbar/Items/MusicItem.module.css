@@ -1,0 +1,222 @@
+.playerMenu {
+  position: relative;
+}
+
+.playerToggle {
+  width: 24px;
+  height: 24px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: 1px solid rgba(0, 229, 255, 0.18);
+  background: transparent;
+  color: var(--text);
+  box-shadow: none;
+}
+
+.playerToggle:hover,
+.playerToggle:active {
+  transform: none;
+  border-color: rgba(0, 229, 255, 0.4);
+  box-shadow: none;
+}
+
+.playerToggleActive {
+  color: var(--yellow);
+  background: rgba(255, 230, 0, 0.08);
+}
+
+.playerDropdown {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  width: 330px;
+  padding: 14px;
+  border: 1px solid rgba(0, 229, 255, 0.45);
+  background: linear-gradient(180deg, rgba(26, 14, 46, 0.96), rgba(13, 10, 26, 0.98));
+  box-shadow: 0 18px 48px rgba(0, 0, 0, 0.55);
+  z-index: 10001;
+}
+
+.playerHeader,
+.playerHero,
+.playerControls,
+.progressMeta,
+.volumeRow {
+  display: flex;
+}
+
+.playerHeader,
+.progressMeta,
+.volumeRow {
+  justify-content: space-between;
+  align-items: center;
+}
+
+.playerHeader {
+  margin-bottom: 12px;
+}
+
+.playerEyebrow,
+.playerStatus,
+.volumeLabel,
+.progressMeta {
+  font-family: var(--font-data);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.playerEyebrow,
+.playerStatus,
+.progressMeta,
+.volumeLabel {
+  color: rgba(224, 224, 255, 0.72);
+}
+
+.openMusicButton {
+  padding: 5px 8px;
+  font-size: 11px;
+  box-shadow: 2px 2px 0 var(--purple);
+}
+
+.playerHero {
+  gap: 12px;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.playerArtworkWrap,
+.playerArtworkFallback {
+  width: 64px;
+  height: 64px;
+  flex: 0 0 64px;
+  border: 1px solid rgba(0, 229, 255, 0.32);
+  overflow: hidden;
+  background: rgba(13, 10, 26, 0.8);
+}
+
+.playerArtwork {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.playerArtworkFallback {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(0, 229, 255, 0.7);
+}
+
+.playerMeta {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.playerTitle,
+.playerArtist {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.playerTitle {
+  color: var(--cyan);
+  font-family: var(--font-header);
+  font-size: 18px;
+}
+
+.playerArtist {
+  color: var(--text);
+  opacity: 0.82;
+  font-size: 12px;
+}
+
+.playerError {
+  margin-bottom: 12px;
+  padding: 8px 10px;
+  border: 1px solid rgba(255, 45, 120, 0.35);
+  background: rgba(255, 45, 120, 0.08);
+  color: var(--pink);
+  font-size: 11px;
+  line-height: 1.4;
+}
+
+.playerControls {
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.controlButton,
+.playButton {
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.controlButton {
+  background: rgba(0, 229, 255, 0.08);
+  color: var(--text);
+}
+
+.playButton {
+  width: 50px;
+  height: 50px;
+  background: linear-gradient(135deg, var(--yellow), var(--cyan));
+  color: var(--bg-darkest);
+  box-shadow: 3px 3px 0 var(--purple);
+}
+
+.progressBlock {
+  margin-bottom: 12px;
+}
+
+.progressMeta {
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.progressSlider,
+.volumeSlider {
+  appearance: none;
+  width: 100%;
+  height: 10px;
+  border: 1px solid rgba(0, 229, 255, 0.35);
+  background: linear-gradient(
+    90deg,
+    var(--cyan) 0%,
+    var(--yellow) var(--progress),
+    rgba(13, 10, 26, 0.9) var(--progress),
+    rgba(13, 10, 26, 0.9) 100%
+  );
+}
+
+.progressSlider::-webkit-slider-thumb,
+.volumeSlider::-webkit-slider-thumb {
+  appearance: none;
+  width: 12px;
+  height: 18px;
+  border: 1px solid var(--bg-darkest);
+  background: var(--pink);
+  box-shadow: 2px 2px 0 var(--purple);
+}
+
+.volumeRow {
+  gap: 12px;
+}
+
+.volumeLabel {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+}

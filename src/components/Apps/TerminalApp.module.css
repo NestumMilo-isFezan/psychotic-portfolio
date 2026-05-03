@@ -1,0 +1,148 @@
+.container {
+  height: 100%;
+  width: 100%;
+  background: var(--bg-darkest);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  padding: 1rem;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  position: relative;
+  scrollbar-width: thin;
+  scrollbar-color: var(--purple) var(--bg-darkest);
+  user-select: text;
+}
+
+/* ── HISTORY ── */
+
+.output {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  line-height: 1.5;
+  color: var(--text);
+  opacity: 0.9;
+}
+
+.error {
+  color: var(--pink);
+  text-shadow: 1px 0 3px var(--purple);
+  line-height: 1.5;
+  font-weight: bold;
+  animation: errorFlicker 0.25s ease both;
+}
+
+@keyframes errorFlicker {
+  0% { opacity: 0; transform: translateX(-3px); }
+  40% { opacity: 1; transform: translateX(2px); }
+  70% { transform: translateX(-1px); }
+  100% { opacity: 1; transform: translateX(0); }
+}
+
+/* ── INPUT LINE ── */
+.inputLine {
+  display: flex;
+  align-items: center;
+  margin-top: 0.35rem;
+  gap: 0.5rem;
+}
+
+.prompt {
+  color: var(--yellow);
+  white-space: nowrap;
+  font-weight: bold;
+  text-shadow: 0 0 4px var(--yellow);
+}
+
+.inputWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex: 1;
+  color: var(--text);
+}
+
+.inputText {
+  white-space: pre;
+}
+
+.cursor {
+  display: inline-block;
+  width: 8px;
+  height: 15px;
+  background: var(--cyan);
+  animation: blink 0.8s step-end infinite;
+  margin-left: 1px;
+  box-shadow: 0 0 5px var(--cyan);
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.hiddenInput {
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+  background: none;
+  color: transparent;
+  caret-color: transparent;
+  outline: none;
+  pointer-events: none;
+}
+
+/* ── FASTFETCH ── */
+.fastfetch {
+  display: flex;
+  gap: 1.5rem;
+  margin: 0.75rem 0;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+.ascii {
+  color: var(--purple);
+  font-weight: bold;
+  line-height: 1.2;
+  text-shadow: 0 0 5px var(--purple);
+  font-size: 0.78rem;
+}
+
+.sysinfo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.infoRow {
+  display: flex;
+  gap: 0.75rem;
+  line-height: 1.5;
+}
+
+.infoLabel {
+  color: var(--yellow);
+  font-weight: bold;
+  min-width: 80px;
+  text-shadow: 0 0 3px var(--yellow);
+}
+
+.colors {
+  display: flex;
+  gap: 5px;
+  margin-top: 0.6rem;
+}
+
+.colorBlock {
+  width: 20px;
+  height: 20px;
+  border: 1px solid var(--bg-mid);
+  box-shadow: 1px 1px 0 var(--purple);
+}

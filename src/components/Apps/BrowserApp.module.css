@@ -1,0 +1,291 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: var(--bg-window);
+  font-family: var(--font-body);
+  color: var(--text-color);
+}
+
+/* ── FAKE BROWSER CHROME ── */
+.browserChrome {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.4rem 0.75rem;
+  background: var(--bg-dark);
+  border-bottom: 1px solid var(--bg-mid);
+  flex-shrink: 0;
+}
+
+.chromeGlobe {
+  color: var(--cyan);
+  opacity: 0.7;
+  flex-shrink: 0;
+}
+
+.addressBar {
+  flex: 1;
+  background: var(--bg-darkest);
+  border: 1px solid var(--bg-mid);
+  padding: 0.2rem 0.6rem;
+  font-family: var(--font-data);
+  font-size: 0.7rem;
+  border-radius: 2px;
+}
+
+.addressScheme {
+  color: var(--cyan);
+  opacity: 0.6;
+}
+
+.addressPath {
+  color: var(--text);
+  opacity: 0.8;
+}
+
+.chromeDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--bg-mid);
+  flex-shrink: 0;
+}
+
+/* ── PAGE CONTENT ── */
+.page {
+  flex: 1;
+  overflow-y: auto;
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  scrollbar-width: thin;
+  scrollbar-color: var(--bg-mid) var(--bg-darkest);
+}
+
+/* ── SECTION DIVIDER ── */
+.divider {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.25rem;
+}
+
+.dividerDecoLeft {
+  color: var(--cyan);
+  font-size: 0.7rem;
+  opacity: 0.7;
+}
+
+.dividerDecoRight {
+  color: var(--pink);
+  font-size: 0.7rem;
+  opacity: 0.7;
+}
+
+.dividerTitle {
+  font-family: var(--font-ui);
+  font-size: 0.78rem;
+  font-weight: bold;
+  color: var(--cyan);
+  letter-spacing: 3px;
+  text-shadow: 0 0 6px var(--cyan);
+  white-space: nowrap;
+}
+
+/* ── QUOTE BLOCK ── */
+.quoteBlock {
+  background: var(--bg-dark);
+  border: 1px solid var(--bg-mid);
+  border-left: 3px solid var(--purple);
+  padding: 1rem 1.25rem;
+  box-shadow: 2px 2px 0 var(--bg-mid);
+  transition: opacity 0.25s ease;
+}
+
+.fadeIn {
+  opacity: 1;
+}
+
+.fadeOut {
+  opacity: 0;
+}
+
+.quoteText {
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: var(--text);
+  font-style: italic;
+  margin-bottom: 0.5rem;
+}
+
+.quoteAuthor {
+  font-family: var(--font-data);
+  font-size: 0.72rem;
+  color: var(--purple);
+  text-align: right;
+  opacity: 0.85;
+}
+
+.rerollRow {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 0.25rem;
+}
+
+.rerollBtn {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--font-ui);
+  font-size: 0.72rem;
+  background: transparent;
+  color: var(--cyan);
+  border: 1px solid var(--cyan);
+  padding: 0.3rem 0.75rem;
+  font-weight: bold;
+  box-shadow: 2px 2px 0 var(--bg-mid);
+  transition: all 0.1s;
+  letter-spacing: 1px;
+}
+
+.rerollBtn:hover {
+  background: var(--cyan);
+  color: var(--bg-darkest);
+  box-shadow: 2px 2px 0 var(--purple);
+}
+
+.rerollBtn:active {
+  transform: translate(1px, 1px);
+  box-shadow: 1px 1px 0 var(--purple);
+}
+
+.rerollBtn:disabled {
+  opacity: 0.4;
+}
+
+.quoteCounter {
+  font-family: var(--font-data);
+  font-size: 0.68rem;
+  color: var(--text);
+  opacity: 0.4;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.spinning {
+  animation: spin 0.5s linear infinite;
+}
+
+/* ── STATUS LIST ── */
+.statusList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.statusItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  padding: 0.55rem 0.85rem;
+  background: var(--bg-dark);
+  border: 1px solid var(--bg-mid);
+  border-left: 3px solid var(--cyan);
+  font-size: 0.82rem;
+  line-height: 1.4;
+  transition: border-color 0.15s, background 0.15s;
+}
+
+.statusItem:hover {
+  border-left-color: var(--pink);
+  background: rgba(255, 45, 120, 0.04);
+}
+
+.statusMarker {
+  color: var(--cyan);
+  font-size: 0.75rem;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.statusItem:hover .statusMarker {
+  color: var(--pink);
+}
+
+.statusText {
+  color: var(--text);
+  opacity: 0.9;
+}
+
+/* ── CTA BLOCK ── */
+.ctaBlock {
+  background: var(--bg-dark);
+  border: 1px solid var(--bg-mid);
+  padding: 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+  box-shadow: 2px 2px 0 var(--bg-mid);
+}
+
+.ctaText {
+  font-size: 0.82rem;
+  color: var(--text);
+  opacity: 0.75;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+  flex: 1;
+}
+
+.ctaPrompt {
+  color: var(--pink);
+  font-weight: bold;
+}
+
+.ctaCursor {
+  color: var(--cyan);
+  animation: blink 1s step-end infinite;
+  margin-left: 0.2rem;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.ctaBtn {
+  font-family: var(--font-ui);
+  font-size: 0.8rem;
+  background: var(--pink);
+  color: var(--bg-darkest);
+  border: 2px solid var(--cyan);
+  padding: 0.45rem 1.25rem;
+  font-weight: bold;
+  letter-spacing: 2px;
+  box-shadow: 3px 3px 0 var(--purple);
+  transition: all 0.1s;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.ctaBtn:hover {
+  background: var(--cyan);
+  border-color: var(--pink);
+  box-shadow: 3px 3px 0 var(--yellow);
+  color: var(--bg-darkest);
+}
+
+.ctaBtn:active {
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0 var(--purple);
+}
