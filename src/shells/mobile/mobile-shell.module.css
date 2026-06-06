@@ -1,0 +1,426 @@
+.shell {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  background: transparent;
+  color: var(--text);
+  font-family: var(--font-body);
+  isolation: isolate;
+  --mobile-status-height: calc(28px + env(safe-area-inset-top));
+  --mobile-nav-height: calc(62px + env(safe-area-inset-bottom));
+}
+
+.shell::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(180deg, rgba(13, 10, 26, 0.1), rgba(13, 10, 26, 0.58));
+}
+
+.statusBar {
+  position: absolute;
+  z-index: 20;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: var(--mobile-status-height);
+  padding: env(safe-area-inset-top) 14px 0;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  background: rgba(13, 10, 26, 0.82);
+  border-bottom: 1px solid rgba(0, 229, 255, 0.25);
+  font-family: var(--font-data);
+  font-size: 10px;
+  letter-spacing: 1px;
+  backdrop-filter: blur(12px);
+}
+
+.statusTitle {
+  color: var(--cyan);
+}
+
+.statusIcons {
+  justify-self: end;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: var(--cyan);
+}
+
+.screen {
+  position: absolute;
+  z-index: 2;
+  top: var(--mobile-status-height);
+  bottom: var(--mobile-nav-height);
+  left: 0;
+  right: 0;
+  overflow: hidden;
+}
+
+.homeScreen,
+.appLayer,
+.recents {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: scale(0.98);
+  transition:
+    opacity 180ms ease,
+    transform 180ms ease,
+    visibility 180ms;
+}
+
+.visible {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: scale(1);
+}
+
+.homeScreen {
+  padding: 18px 16px;
+  overflow-y: auto;
+}
+
+.hero {
+  margin: 8px 0 24px;
+  padding: 18px;
+  background: rgba(13, 10, 26, 0.72);
+  border: 1px solid rgba(0, 229, 255, 0.5);
+  border-left: 4px solid var(--pink);
+  box-shadow: 4px 4px 0 rgba(191, 0, 255, 0.7);
+  backdrop-filter: blur(10px);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.hero strong {
+  font-family: var(--font-header);
+  font-size: clamp(32px, 12vw, 52px);
+  color: var(--cyan);
+  letter-spacing: 4px;
+  text-shadow: 3px 3px var(--purple);
+}
+
+.hero span:last-child {
+  font-size: 11px;
+  opacity: 0.7;
+}
+
+.eyebrow {
+  font-family: var(--font-data);
+  font-size: 9px;
+  color: var(--yellow);
+  letter-spacing: 2px;
+}
+
+.appGrid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 18px 10px;
+}
+
+.gridSpacer {
+  height: 81px;
+  pointer-events: none;
+}
+
+.appIcon {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+  color: var(--text);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 7px;
+  font-size: 11px;
+  letter-spacing: 0.5px;
+}
+
+.appIcon:hover,
+.appIcon:active {
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+  transform: scale(0.96);
+}
+
+.appIconGlyph {
+  width: 58px;
+  height: 58px;
+  display: grid;
+  place-items: center;
+  color: var(--cyan);
+  background: linear-gradient(145deg, rgba(45, 27, 78, 0.95), rgba(13, 10, 26, 0.95));
+  border: 1px solid var(--cyan);
+  border-radius: 16px;
+  box-shadow:
+    3px 3px 0 var(--purple),
+    inset 0 0 18px rgba(0, 229, 255, 0.08);
+}
+
+.appSurface {
+  position: absolute;
+  inset: 0;
+  display: none;
+  flex-direction: column;
+  background: var(--bg-darkest);
+}
+
+.activeApp {
+  display: flex;
+}
+
+.recentClose {
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  display: grid;
+  place-items: center;
+  background: transparent;
+  color: var(--pink);
+  border: 0;
+  box-shadow: none;
+}
+
+.appContent {
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.recents {
+  padding: 16px 0 72px;
+  background: rgba(13, 10, 26, 0.72);
+  backdrop-filter: blur(16px);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.recentsHeader {
+  padding: 0 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  margin-bottom: 12px;
+  text-align: center;
+  font-family: var(--font-data);
+  letter-spacing: 2px;
+}
+
+.recentsHeader span {
+  font-size: 9px;
+  color: var(--pink);
+}
+
+.recentsHeader strong {
+  color: var(--cyan);
+  font-size: 14px;
+}
+
+.recentCarousel {
+  flex: 1;
+  min-height: 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 8px calc((100% - min(78vw, 360px)) / 2) 20px;
+  scroll-snap-type: x mandatory;
+  scroll-padding-inline: calc((100% - min(78vw, 360px)) / 2);
+  scrollbar-width: none;
+  overscroll-behavior-x: contain;
+}
+
+.recentCarousel::-webkit-scrollbar {
+  display: none;
+}
+
+.recentCard {
+  flex: 0 0 78vw;
+  width: 78vw;
+  max-width: 360px;
+  height: min(68vh, 570px);
+  scroll-snap-align: center;
+  display: flex;
+  flex-direction: column;
+  border-radius: 22px;
+  background: rgba(26, 14, 46, 0.94);
+  border: 1px solid rgba(0, 229, 255, 0.4);
+  box-shadow:
+    0 18px 34px rgba(0, 0, 0, 0.38),
+    4px 4px 0 rgba(191, 0, 255, 0.65);
+  opacity: 0.76;
+  transform: scale(0.94);
+  transition:
+    opacity 180ms ease,
+    transform 180ms ease,
+    border-color 180ms ease;
+  overflow: hidden;
+}
+
+.focusedRecentCard {
+  opacity: 1;
+  transform: scale(1);
+  border-color: var(--cyan);
+}
+
+.recentCardHeader {
+  height: 44px;
+  flex-shrink: 0;
+  padding: 0 8px 0 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(0, 229, 255, 0.25);
+}
+
+.recentIdentity {
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--cyan);
+}
+
+.recentIdentity strong {
+  min-width: 0;
+  font-family: var(--font-ui);
+  font-size: 11px;
+  letter-spacing: 1px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.recentPreview {
+  flex: 1;
+  min-height: 0;
+  width: 100%;
+  padding: 0;
+  overflow: hidden;
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+}
+
+.recentPreview:hover,
+.recentPreview:active {
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+  transform: none;
+}
+
+.recentPreview img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  object-position: top center;
+}
+
+.recentClose {
+  flex-shrink: 0;
+}
+
+.previewFallback {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  color: var(--cyan);
+  background:
+    repeating-linear-gradient(
+      135deg,
+      rgba(191, 0, 255, 0.08) 0,
+      rgba(191, 0, 255, 0.08) 8px,
+      transparent 8px,
+      transparent 16px
+    ),
+    var(--bg-darkest);
+}
+
+.previewFallback strong {
+  font-family: var(--font-ui);
+  font-size: 13px;
+  letter-spacing: 2px;
+}
+
+.previewFallback small {
+  font-family: var(--font-data);
+  font-size: 8px;
+  color: var(--pink);
+  letter-spacing: 1px;
+}
+
+.clearAll {
+  position: absolute;
+  z-index: 4;
+  bottom: 14px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 8px 18px;
+  border-radius: 999px;
+  font-size: 10px;
+  letter-spacing: 1px;
+}
+
+.clearAll:active {
+  transform: translateX(-50%) translate(2px, 2px);
+}
+
+.emptyRecents {
+  margin: auto;
+  color: var(--cyan);
+  opacity: 0.55;
+  font-family: var(--font-data);
+  font-size: 11px;
+  letter-spacing: 1px;
+}
+
+.navigation {
+  position: absolute;
+  z-index: 20;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: var(--mobile-nav-height);
+  padding: 7px 24px calc(env(safe-area-inset-bottom) + 8px);
+  background: rgba(13, 10, 26, 0.9);
+  border-top: 1px solid rgba(0, 229, 255, 0.35);
+  backdrop-filter: blur(14px);
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.navigation button {
+  padding: 10px;
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+  color: var(--text);
+  display: grid;
+  place-items: center;
+  border-radius: 999px;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.navigation button:active {
+  background: rgba(0, 229, 255, 0.12);
+}
