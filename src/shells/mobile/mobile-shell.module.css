@@ -126,11 +126,6 @@
   gap: 18px 10px;
 }
 
-.gridSpacer {
-  height: 81px;
-  pointer-events: none;
-}
-
 .appIcon {
   padding: 0;
   border: 0;
