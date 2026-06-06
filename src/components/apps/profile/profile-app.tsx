@@ -1,6 +1,6 @@
 import React, { useCallback } from "react";
 import styles from "./profile-app.module.css";
-import { useWindowStore } from "@/store/window-store";
+import { useAppStore } from "@/store/app-store";
 import type { AppProps } from "@/components/apps/app-registry";
 
 const MAX_MONTHS = 36;
@@ -48,20 +48,14 @@ const StatBar: React.FC<{ label: string; months: number; display: string }> = ({
 };
 
 export const ProfileApp: React.FC<AppProps> = () => {
-  const addWindow = useWindowStore((state) => state.addWindow);
+  const openApp = useAppStore((state) => state.openApp);
 
   const openPhoto = useCallback(() => {
-    addWindow({
-      id: `profile-photo-${Date.now()}`,
+    openApp("IMAGE_VIEWER", {
       title: "my-profile-pic.jpg",
-      x: Math.random() * (window.innerWidth - 500) + 50,
-      y: Math.random() * (window.innerHeight - 500) + 50,
-      width: 400,
-      height: 400,
-      appName: "IMAGE_VIEWER",
       params: { path: "/profile/my-profile-pic.jpg" },
     });
-  }, [addWindow]);
+  }, [openApp]);
 
   return (
     <div className={styles.container}>

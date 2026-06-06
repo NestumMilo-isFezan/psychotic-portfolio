@@ -1,0 +1,43 @@
+.clockWidget {
+  margin: 20px 0 28px;
+  padding: 12px 0 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.clockDateTop {
+  font-family: var(--font-ui);
+  font-size: 14px;
+  color: var(--cyan);
+  letter-spacing: 2px;
+  opacity: 0.85;
+  text-align: center;
+}
+
+.clockTime {
+  display: flex;
+  align-items: baseline;
+  font-family: var(--font-header);
+  line-height: 1;
+}
+
+.clockHours,
+.clockMinutes {
+  font-size: clamp(60px, 20vw, 110px);
+  color: var(--text);
+  text-shadow: 3px 3px var(--purple);
+}
+
+.clockSeparator {
+  font-size: clamp(48px, 16vw, 88px);
+  color: var(--cyan);
+  margin: 0 3px;
+  animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}

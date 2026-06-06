@@ -38,6 +38,18 @@
   cursor: none !important;
 }
 
+@media (orientation: portrait) {
+  * {
+    cursor: auto !important;
+  }
+
+  button,
+  a,
+  [role="button"] {
+    cursor: pointer !important;
+  }
+}
+
 * {
   box-sizing: border-box;
   margin: 0;

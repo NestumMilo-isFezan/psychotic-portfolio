@@ -224,6 +224,16 @@
   color: var(--pink);
 }
 
+@media (orientation: portrait) {
+  .page {
+    padding: 0.8rem;
+  }
+
+  .quoteBlock {
+    padding: 0.8rem;
+  }
+}
+
 .statusText {
   color: var(--text);
   opacity: 0.9;

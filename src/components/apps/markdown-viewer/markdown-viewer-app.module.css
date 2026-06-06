@@ -89,6 +89,17 @@
   line-height: 1.6;
 }
 
+@media (orientation: portrait) {
+  .content {
+    padding: 0.85rem;
+    font-size: 0.78rem;
+  }
+
+  .toolbar {
+    padding: 0.4rem 0.55rem;
+  }
+}
+
 /* ── MARKDOWN TYPOGRAPHY ── */
 .content :global(h1),
 .content :global(h2),

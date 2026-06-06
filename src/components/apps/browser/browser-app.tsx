@@ -1,6 +1,6 @@
 import React, { useState, useCallback } from "react";
 import { RefreshCw, Globe } from "lucide-react";
-import { useWindowStore } from "@/store/window-store";
+import { useAppStore } from "@/store/app-store";
 import type { AppProps } from "@/components/apps/app-registry";
 import styles from "./browser-app.module.css";
 
@@ -66,7 +66,7 @@ const getRandomIndex = (exclude: number, max: number): number => {
 export const BrowserApp: React.FC<AppProps> = () => {
   const [quoteIndex, setQuoteIndex] = useState(() => Math.floor(Math.random() * QUOTES.length));
   const [rerolling, setRerolling] = useState(false);
-  const addWindow = useWindowStore((s) => s.addWindow);
+  const openApp = useAppStore((state) => state.openApp);
 
   const reroll = useCallback(() => {
     setRerolling(true);
@@ -77,17 +77,8 @@ export const BrowserApp: React.FC<AppProps> = () => {
   }, []);
 
   const openContact = useCallback(() => {
-    addWindow({
-      id: "contact",
-      title: "contact.app",
-      x: Math.random() * (window.innerWidth - 650) + 50,
-      y: Math.random() * (window.innerHeight - 450) + 50,
-      width: 620,
-      height: 420,
-      appName: "CONTACT",
-      iconName: "CONTACT",
-    });
-  }, [addWindow]);
+    openApp("CONTACT");
+  }, [openApp]);
 
   const quote = QUOTES[quoteIndex];
 

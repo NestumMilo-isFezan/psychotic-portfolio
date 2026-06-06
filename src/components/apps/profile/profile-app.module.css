@@ -340,6 +340,36 @@
   box-shadow: 2px 2px 0 var(--purple);
 }
 
+@media (orientation: portrait) {
+  .container {
+    padding: 0.85rem;
+  }
+
+  .header {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 0.75rem;
+  }
+
+  .identity,
+  .statusLine {
+    align-items: center;
+  }
+
+  .statusLine {
+    font-size: 0.7rem;
+  }
+
+  .statRow {
+    grid-template-columns: 1fr auto;
+  }
+
+  .statBar {
+    display: none;
+  }
+}
+
 .certIcon {
   color: var(--purple);
   font-size: 0.8rem;

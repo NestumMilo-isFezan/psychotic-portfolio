@@ -1,6 +1,6 @@
 import React, { useState, useCallback, useEffect } from "react";
 import { FaFolder, FaFolderOpen, FaFileLines, FaImage, FaChevronLeft } from "react-icons/fa6";
-import { useWindowStore } from "@/store/window-store";
+import { useAppStore } from "@/store/app-store";
 import styles from "./files-app.module.css";
 
 interface FileItem {
@@ -12,6 +12,7 @@ interface FileItem {
 }
 
 import type { AppProps } from "@/components/apps/app-registry";
+import { useMobileBackHandler } from "@/components/apps/mobile-navigation-context";
 
 function getTypeBadge(item: FileItem): string {
   if (item.type === "folder") return "DIR";
@@ -26,7 +27,7 @@ export const FilesApp: React.FC<AppProps> = () => {
   const [currentPath, setCurrentPath] = useState("/");
   const [fileTree, setFileTree] = useState<FileItem[]>([]);
   const [loading, setLoading] = useState(true);
-  const addWindow = useWindowStore((state) => state.addWindow);
+  const openApp = useAppStore((state) => state.openApp);
 
   useEffect(() => {
     const fetchFiles = async () => {
@@ -64,30 +65,18 @@ export const FilesApp: React.FC<AppProps> = () => {
       const { extension, path, name } = item;
 
       if (extension === "md") {
-        addWindow({
-          id: `md-${Date.now()}`,
+        openApp("MD_VIEWER", {
           title: name,
-          x: 100 + Math.random() * 100,
-          y: 100 + Math.random() * 100,
-          width: 600,
-          height: 500,
-          appName: "MD_VIEWER",
           params: { path },
         });
       } else if (["jpeg", "jpg", "png", "gif", "webp"].includes(extension || "")) {
-        addWindow({
-          id: `img-${Date.now()}`,
+        openApp("IMAGE_VIEWER", {
           title: name,
-          x: 150 + Math.random() * 100,
-          y: 150 + Math.random() * 100,
-          width: 400,
-          height: 400,
-          appName: "IMAGE_VIEWER",
           params: { path },
         });
       }
     },
-    [addWindow],
+    [openApp],
   );
 
   const handleItemClick = useCallback(
@@ -108,6 +97,15 @@ export const FilesApp: React.FC<AppProps> = () => {
     const newPath = parts.length > 0 ? "/" + parts.join("/") : "/";
     setCurrentPath(newPath);
   }, [currentPath]);
+
+  useMobileBackHandler(
+    "FILES",
+    useCallback(() => {
+      if (currentPath === "/") return false;
+      goBack();
+      return true;
+    }, [currentPath, goBack]),
+  );
 
   const activeFolderName = currentPath === "/" ? null : currentPath.split("/").filter(Boolean)[0];
   const displayPath = currentPath === "/" ? "~" : `~${currentPath}`;

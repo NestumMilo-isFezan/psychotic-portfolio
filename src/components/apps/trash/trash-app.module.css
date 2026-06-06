@@ -523,6 +523,25 @@
   animation: fadeInBlack 0.3s ease-out forwards;
 }
 
+@media (orientation: portrait) {
+  .sidebar {
+    display: none;
+  }
+
+  .toolbar {
+    padding: 0.35rem 0.5rem;
+  }
+
+  .fileRow td,
+  .tableHead th {
+    padding: 0.65rem 0.5rem;
+  }
+
+  .readerPanel {
+    padding: 0.75rem;
+  }
+}
+
 @keyframes fadeInBlack {
   from {
     opacity: 0;

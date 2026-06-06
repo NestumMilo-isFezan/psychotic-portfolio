@@ -176,3 +176,13 @@
   opacity: 1;
   transform: translateX(2px);
 }
+
+@media (orientation: portrait) {
+  .container {
+    padding: 0.85rem;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}

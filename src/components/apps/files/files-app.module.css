@@ -259,6 +259,25 @@
   opacity: 0.7;
 }
 
+@media (orientation: portrait) {
+  .sidebar {
+    display: none;
+  }
+
+  .toolbar {
+    padding: 0.35rem 0.5rem;
+  }
+
+  .fileRow td,
+  .tableHead th {
+    padding: 0.65rem 0.5rem;
+  }
+
+  .rowName {
+    font-size: 0.75rem;
+  }
+}
+
 /* ── LOADING & EMPTY ── */
 .loadingState {
   display: flex;

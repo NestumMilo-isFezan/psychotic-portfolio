@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect, useCallback, memo } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { AsciiAnimation } from "./ascii-animation";
-import { useWindowStore } from "@/store/window-store";
+import { useAppStore } from "@/store/app-store";
 import { useTrashStore } from "@/store/trash-store";
 import type { AppProps } from "@/components/apps/app-registry";
 import styles from "./terminal-app.module.css";
@@ -163,11 +163,11 @@ export const TerminalApp: React.FC<AppProps> = ({ windowId }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const [hasRunOnboard, setHasRunOnboard] = useState(false);
-  const addWindow = useWindowStore((state) => state.addWindow);
+  const openApp = useAppStore((state) => state.openApp);
   const restoreNovel = useTrashStore((state) => state.restoreNovel);
   const novelExists = useTrashStore((state) => state.novelExists);
 
-  const isFocused = useWindowStore((state) => state.windows.find((w) => w.id === windowId)?.focused);
+  const isFocused = useAppStore((state) => state.activeAppId === windowId);
 
   useEffect(() => {
     if (isFocused) {
@@ -322,25 +322,13 @@ export const TerminalApp: React.FC<AppProps> = ({ windowId }) => {
           if (file) {
             const { extension, path, name } = file;
             if (extension === "md") {
-              addWindow({
-                id: `md-${Date.now()}`,
+              openApp("MD_VIEWER", {
                 title: name,
-                x: 100 + Math.random() * 100,
-                y: 100 + Math.random() * 100,
-                width: 600,
-                height: 500,
-                appName: "MD_VIEWER",
                 params: { path },
               });
             } else if (["jpeg", "jpg", "png", "gif", "webp"].includes(extension || "")) {
-              addWindow({
-                id: `img-${Date.now()}`,
+              openApp("IMAGE_VIEWER", {
                 title: name,
-                x: 150 + Math.random() * 100,
-                y: 150 + Math.random() * 100,
-                width: 400,
-                height: 400,
-                appName: "IMAGE_VIEWER",
                 params: { path },
               });
             } else {
@@ -401,7 +389,7 @@ export const TerminalApp: React.FC<AppProps> = ({ windowId }) => {
         });
       }
     },
-    [currentPath, getDirContents, hasRunOnboard, addWindow, addHistory, restoreNovel, novelExists],
+    [currentPath, getDirContents, hasRunOnboard, openApp, addHistory, restoreNovel, novelExists],
   );
 
   useEffect(() => {

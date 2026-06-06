@@ -4,6 +4,7 @@ import { FaFileLines, FaTrashCan } from "react-icons/fa6";
 import { FaChevronLeft } from "react-icons/fa6";
 import { useTrashStore } from "@/store/trash-store";
 import type { AppProps } from "@/components/apps/app-registry";
+import { useMobileBackHandler } from "@/components/apps/mobile-navigation-context";
 import styles from "./trash-app.module.css";
 
 const NOVEL_PATH = "/files/trash/draft-light-novel.md";
@@ -56,6 +57,15 @@ export const TrashApp: React.FC<AppProps> = () => {
   const closeReader = useCallback(() => {
     setView("list");
   }, []);
+
+  useMobileBackHandler(
+    "TRASH",
+    useCallback(() => {
+      if (view !== "reader" || phase === "glitch" || phase === "blank") return false;
+      closeReader();
+      return true;
+    }, [closeReader, phase, view]),
+  );
 
   // Glitch → blank → reboot → destroy sequence
   const triggerSequence = useCallback(() => {

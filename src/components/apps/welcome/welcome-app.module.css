@@ -61,3 +61,24 @@
   object-fit: cover;
   display: block;
 }
+
+@media (orientation: portrait) {
+  .container {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr;
+  }
+
+  .leftPane {
+    padding: 1.25rem;
+    border-right: 0;
+    border-bottom: 1px solid var(--bg-mid);
+  }
+
+  .name {
+    font-size: clamp(2rem, 12vw, 3.4rem);
+  }
+
+  .rightPane {
+    min-height: 0;
+  }
+}
