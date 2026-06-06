@@ -1,16 +1,16 @@
-import React, { Suspense } from "react";
+import React from "react";
 import { Rnd, type HandleComponent, type HandleStyles } from "react-rnd";
 import { motion } from "motion/react";
 import type { ResizeDirection } from "re-resizable";
 import { useCursorStore, type ResizeCursorDirection } from "@/store/cursor-store";
+import { useAppStore, type AppInstance } from "@/store/app-store";
 import { useWindowStore } from "@/store/window-store";
-import type { WindowData } from "@/store/window-store";
-import { getAppComponent } from "../apps/app-registry";
-import { LoadingApp } from "../apps/loading/loading-app";
+import { AppRenderer } from "../apps/app-renderer";
 import styles from "./window.module.css";
 
 interface WindowProps {
-  data: WindowData;
+  app: AppInstance;
+  onActivate: () => void;
 }
 
 const resizeHandleClassNames = {
@@ -101,10 +101,12 @@ const resizeDirectionMap: Record<ResizeDirection, ResizeCursorDirection> = {
   topLeft: "topLeft",
 };
 
-export const Window = React.memo(({ data }: WindowProps) => {
-  const layout = useWindowStore((state) => state.layouts[data.id]);
+export const Window = React.memo(({ app, onActivate }: WindowProps) => {
+  const windowEntry = useWindowStore((state) => state.windows[app.id]);
+  const focused = useWindowStore((state) => state.focusedId === app.id);
+  const layout = useWindowStore((state) => state.layouts[app.id]);
   const focusWindow = useWindowStore((state) => state.focusWindow);
-  const closeWindow = useWindowStore((state) => state.closeWindow);
+  const closeApp = useAppStore((state) => state.closeApp);
   const minimizeWindow = useWindowStore((state) => state.minimizeWindow);
   const updatePosition = useWindowStore((state) => state.updatePosition);
   const updateSize = useWindowStore((state) => state.updateSize);
@@ -115,44 +117,33 @@ export const Window = React.memo(({ data }: WindowProps) => {
   const isDragging = useCursorStore((state) => state.isDragging);
   const isResizing = useCursorStore((state) => state.isResizing);
 
-  if (!layout) return null;
+  if (!layout || !windowEntry) return null;
 
-  const isInteracting = (isDragging || isResizing) && data.focused;
-
-  const renderContent = () => {
-    const AppComponent = getAppComponent(data.appName);
-
-    return (
-      <Suspense fallback={<LoadingApp />}>
-        <AppComponent
-          windowId={data.id}
-          appName={data.appName}
-          iconName={data.iconName}
-          params={data.params}
-        />
-      </Suspense>
-    );
-  };
+  const z = windowEntry.z;
+  const minimized = windowEntry.minimized ?? false;
+  const isInteracting = (isDragging || isResizing) && focused;
 
   return (
     <Rnd
       size={{ width: layout.width, height: layout.height }}
       position={{ x: layout.x, y: layout.y }}
       onDragStart={() => {
-        focusWindow(data.id);
+        focusWindow(app.id);
+        onActivate();
         startDragging();
       }}
       onDragStop={(_e, d) => {
-        updatePosition(data.id, d.x, d.y);
+        updatePosition(app.id, d.x, d.y);
         stopDragging();
       }}
       onResizeStart={(_e, direction) => {
-        focusWindow(data.id);
+        focusWindow(app.id);
+        onActivate();
         startResizing(resizeDirectionMap[direction]);
       }}
       onResizeStop={(_e, _direction, ref, _delta, position) => {
-        updateSize(data.id, ref.style.width, ref.style.height);
-        updatePosition(data.id, position.x, position.y);
+        updateSize(app.id, ref.style.width, ref.style.height);
+        updatePosition(app.id, position.x, position.y);
         stopResizing();
       }}
       dragHandleClassName={styles.titleBar}
@@ -160,10 +151,11 @@ export const Window = React.memo(({ data }: WindowProps) => {
       resizeHandleStyles={resizeHandleStyles}
       resizeHandleComponent={resizeHandleComponents}
       bounds="window"
-      style={{ zIndex: data.z, display: data.minimized ? "none" : "block" }}
+      style={{ zIndex: z, display: minimized ? "none" : "block" }}
       onMouseDown={(e) => {
         e.stopPropagation();
-        focusWindow(data.id);
+        focusWindow(app.id);
+        onActivate();
       }}
       onClick={(e: React.MouseEvent) => {
         e.stopPropagation();
@@ -174,9 +166,9 @@ export const Window = React.memo(({ data }: WindowProps) => {
         animate={{ scale: 1, opacity: 1, rotate: 0 }}
         className={styles.windowWrapper}
       >
-        <div className={`${styles.windowShadow} ${data.focused ? styles.focused : ""}`} />
+        <div className={`${styles.windowShadow} ${focused ? styles.focused : ""}`} />
         <div
-          className={`${styles.window} ${data.focused ? styles.focused : ""} ${isInteracting ? styles.interacting : ""}`}
+          className={`${styles.window} ${focused ? styles.focused : ""} ${isInteracting ? styles.interacting : ""}`}
         >
           <div className={styles.titleBar} data-cursor-mode="grab">
             <div className={styles.controls}>
@@ -185,7 +177,7 @@ export const Window = React.memo(({ data }: WindowProps) => {
                 data-cursor-mode="pointer"
                 onClick={(e) => {
                   e.stopPropagation();
-                  closeWindow(data.id);
+                  closeApp(app.id);
                 }}
               />
               <div
@@ -193,14 +185,16 @@ export const Window = React.memo(({ data }: WindowProps) => {
                 data-cursor-mode="pointer"
                 onClick={(e) => {
                   e.stopPropagation();
-                  minimizeWindow(data.id);
+                  minimizeWindow(app.id);
                 }}
               />
               <div className={`${styles.btn} ${styles.maximizeBtn}`} data-cursor-mode="pointer" />
             </div>
-            <div className={styles.title}>{data.title}</div>
+            <div className={styles.title}>{app.title}</div>
           </div>
-          <div className={styles.content}>{renderContent()}</div>
+          <div className={styles.content}>
+            <AppRenderer app={app} />
+          </div>
         </div>
       </motion.div>
     </Rnd>

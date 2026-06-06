@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { Music2, Pause, Play, SkipBack, SkipForward, Volume2 } from "lucide-react";
 import { useShallow } from "zustand/react/shallow";
 import { useMusicStore } from "@/store/music-store";
-import { useWindowStore } from "@/store/window-store";
+import { useAppStore } from "@/store/app-store";
 import styles from "./music-item.module.css";
 
 const formatTime = (time: number) => {
@@ -49,9 +49,7 @@ export const MusicItem: React.FC = () => {
     })),
   );
 
-  const windows = useWindowStore((state) => state.windows);
-  const addWindow = useWindowStore((state) => state.addWindow);
-  const focusWindow = useWindowStore((state) => state.focusWindow);
+  const openApp = useAppStore((state) => state.openApp);
 
   useEffect(() => {
     if (!currentTrack) setIsOpen(false);
@@ -76,22 +74,7 @@ export const MusicItem: React.FC = () => {
 
   const openMusicWindow = () => {
     setHasStartedMusic(true);
-    const existing = windows.find((w) => w.appName === "MUSIC");
-    if (existing) {
-      focusWindow(existing.id);
-      setIsOpen(false);
-      return;
-    }
-    addWindow({
-      id: `music-${Date.now()}`,
-      title: "music.app",
-      x: Math.max(60, window.innerWidth / 2 - 450),
-      y: Math.max(60, window.innerHeight / 2 - 350),
-      width: 900,
-      height: 700,
-      appName: "MUSIC",
-      iconName: "AUDIO",
-    });
+    openApp("MUSIC");
     setIsOpen(false);
   };
 

@@ -8,21 +8,16 @@ export interface WindowLayout {
 }
 
 export interface WindowData {
-  id: string;
-  title: string;
   z: number;
-  focused: boolean;
   minimized?: boolean;
-  appName: string;
-  iconName?: string;
-  params?: Record<string, unknown>;
 }
 
 interface WindowState {
-  windows: WindowData[];
+  windows: Record<string, WindowData>;
+  focusedId: string | null;
   layouts: Record<string, WindowLayout>;
   maxZ: number;
-  addWindow: (window: Omit<WindowData, "z" | "focused"> & WindowLayout) => void;
+  ensureWindow: (id: string, layout: WindowLayout) => void;
   closeWindow: (id: string) => void;
   focusWindow: (id: string) => void;
   minimizeWindow: (id: string) => void;
@@ -32,74 +27,67 @@ interface WindowState {
 }
 
 export const useWindowStore = create<WindowState>((set) => ({
-  windows: [],
+  windows: {},
+  focusedId: null,
   layouts: {},
   maxZ: 10,
-  addWindow: (window) =>
+  ensureWindow: (id, layout) =>
     set((state) => {
-      const exists = state.windows.some((w) => w.id === window.id);
+      if (state.windows[id]) return state;
       const newZ = state.maxZ + 1;
 
-      const { x, y, width, height, ...lifecycle } = window;
-      const layout: WindowLayout = { x, y, width, height };
-
-      if (exists) {
-        return {
-          windows: state.windows.map((w) =>
-            w.id === window.id
-              ? { ...w, z: newZ, focused: true, minimized: false }
-              : { ...w, focused: false },
-          ),
-          layouts: {
-            ...state.layouts,
-            [window.id]: layout,
-          },
-          maxZ: newZ,
-        };
-      }
-
       return {
-        windows: [
-          ...state.windows.map((w) => ({ ...w, focused: false })),
-          { ...lifecycle, z: newZ, focused: true, minimized: false },
-        ],
+        windows: {
+          ...state.windows,
+          [id]: { z: newZ, minimized: false },
+        },
+        focusedId: id,
         layouts: {
           ...state.layouts,
-          [window.id]: layout,
+          [id]: layout,
         },
         maxZ: newZ,
       };
     }),
   closeWindow: (id) =>
     set((state) => {
+      const windows = Object.fromEntries(
+        Object.entries(state.windows).filter(([key]) => key !== id),
+      );
       const { [id]: _, ...remainingLayouts } = state.layouts;
       return {
-        windows: state.windows.filter((w) => w.id !== id),
+        windows,
         layouts: remainingLayouts,
+        focusedId: state.focusedId === id ? null : state.focusedId,
       };
     }),
   focusWindow: (id) =>
     set((state) => {
+      const existing = state.windows[id];
+      if (!existing) return state;
       const newZ = state.maxZ + 1;
       return {
-        windows: state.windows.map((w) =>
-          w.id === id
-            ? { ...w, z: newZ, focused: true, minimized: false }
-            : { ...w, focused: false },
-        ),
+        windows: {
+          ...state.windows,
+          [id]: { ...existing, z: newZ, minimized: false },
+        },
+        focusedId: id,
         maxZ: newZ,
       };
     }),
   minimizeWindow: (id) =>
-    set((state) => ({
-      windows: state.windows.map((w) =>
-        w.id === id ? { ...w, minimized: true, focused: false } : w,
-      ),
-    })),
-  clearFocus: () =>
-    set((state) => ({
-      windows: state.windows.map((w) => ({ ...w, focused: false })),
-    })),
+    set((state) => {
+      const existing = state.windows[id];
+      if (!existing) return state;
+      return {
+        windows: {
+          ...state.windows,
+          [id]: { ...existing, minimized: true },
+        },
+        focusedId: null,
+      };
+    }),
+  clearFocus: () => set({ focusedId: null }),
   updatePosition: (id, x, y) =>
     set((state) => {
       if (!state.layouts[id]) return state;

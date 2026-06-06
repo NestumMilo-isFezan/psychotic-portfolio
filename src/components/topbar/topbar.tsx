@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Wifi, Bluetooth, Settings2, Atom } from "lucide-react";
-import { useWindowStore } from "@/store/window-store";
+import { useAppStore } from "@/store/app-store";
 import { CalendarItem } from "./items/calendar/calendar-item";
 import { MusicItem } from "./items/music/music-item";
 import { BatteryItem } from "./items/battery/battery-item";
@@ -9,10 +9,10 @@ import styles from "./topbar.module.css";
 export const Topbar = () => {
   const [time, setTime] = useState(new Date());
 
-  const activeTitle = useWindowStore((state) => {
-    const focusedWindow = state.windows.find((w) => w.focused);
-    return focusedWindow
-      ? focusedWindow.title.replace(".app", "").replace(".txt", "").toUpperCase()
+  const activeTitle = useAppStore((state) => {
+    const activeApp = state.apps.find((app) => app.id === state.activeAppId);
+    return activeApp
+      ? activeApp.title.replace(".app", "").replace(".txt", "").toUpperCase()
       : "PSYCHOS";
   });
 
