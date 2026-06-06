@@ -1,5 +1,5 @@
 import React, { memo } from "react";
-import { Pause, Play, RefreshCw, SkipBack, SkipForward, Volume2, Music2 } from "lucide-react";
+import { Pause, Play, RefreshCw, SkipBack, SkipForward, Volume2, Music2, WifiOff } from "lucide-react";
 import styles from "./music-app.module.css";
 import type { AppProps } from "@/components/apps/app-registry";
 import { useMusicStore } from "@/store/music-store";
@@ -161,6 +161,7 @@ export const MusicApp: React.FC<AppProps> = ({ windowId }) => {
     togglePlayPause,
     playNext,
     playPrevious,
+    isUsingFallback,
   } = useMusicApp();
 
   const renderTrackList = () => {
@@ -209,6 +210,14 @@ export const MusicApp: React.FC<AppProps> = ({ windowId }) => {
         </span>
         <span className={styles.subtitleCursor}>▮</span>
       </div>
+
+      {/* ── SESSION EXPIRED BANNER ── */}
+      {isUsingFallback && (
+        <div className={styles.offlineBanner}>
+          <WifiOff size={11} />
+          <span>SESSION_EXPIRED // PLAYING OFFLINE LIBRARY</span>
+        </div>
+      )}
 
       {/* ── DECK ── */}
       <div className={styles.deck}>
@@ -279,7 +288,7 @@ export const MusicApp: React.FC<AppProps> = ({ windowId }) => {
 
       {/* ── TRACK BROWSER ── */}
       <div className={styles.browserHeaderRow}>
-        <SectionDivider title="LISTEN_AGAIN" />
+        <SectionDivider title={isUsingFallback ? "OFFLINE_LIBRARY" : "LISTEN_AGAIN"} />
         <div className={styles.browserMeta}>
           {tracks.length > 0 && <span className={styles.countBadge}>{tracks.length} tracks</span>}
           <button

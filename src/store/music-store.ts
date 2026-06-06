@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import type { MusicItem } from "@/components/apps/music/core/types";
+import type { MusicItem } from "../components/apps/music/core/types";
 
 type PlaybackStatus = "idle" | "loading" | "playing" | "paused" | "error";
 
@@ -71,7 +71,12 @@ export const useMusicStore = create<MusicState>((set, get) => ({
     if (state.currentTrack?.id === track.id) {
       // Same track re-selected: resume if paused, retry if error/idle
       if (state.status === "paused" || state.status === "error" || state.status === "idle") {
-        set({ status: "playing", error: null, streamLoadingTrackId: track.id, hasStartedMusic: true });
+        set({
+          status: "playing",
+          error: null,
+          streamLoadingTrackId: track.id,
+          hasStartedMusic: true,
+        });
       }
       if (queue && queue.length > 0) {
         set({ queue, currentIndex: startIndex ?? queue.findIndex((item) => item.id === track.id) });

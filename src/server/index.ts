@@ -1,7 +1,7 @@
 import "dotenv/config";
 import { Hono } from "hono";
 import { Innertube } from "youtubei.js";
-import { readdir } from "node:fs/promises";
+import { readdir, readFile } from "node:fs/promises";
 import { join, extname } from "node:path";
 
 const app = new Hono();
@@ -148,6 +148,23 @@ app.get("/api/ytm/history", async (c) => {
     return c.json({ tracks });
   } catch (error) {
     return c.json({ error: "Failed to fetch music history", details: String(error) }, 500);
+  }
+});
+
+app.get("/api/ytm/fallback", async (c) => {
+  try {
+    const filePath = join(process.cwd(), "public", "music-fallback.json");
+    const raw = await readFile(filePath, "utf-8");
+    const data = JSON.parse(raw) as { tracks: Array<{ id: string; title: string; artist: string; thumbnail?: string }> };
+
+    const tracks = data.tracks.map((t) => ({
+      ...t,
+      thumbnail: t.thumbnail || `https://i.ytimg.com/vi/${t.id}/mqdefault.jpg`,
+    }));
+
+    return c.json({ tracks });
+  } catch (error) {
+    return c.json({ error: "Failed to read fallback library", details: String(error) }, 500);
   }
 });
 
