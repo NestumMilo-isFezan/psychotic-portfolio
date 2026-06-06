@@ -255,6 +255,9 @@ function MobileShellContent() {
           <ClockWidget />
           <div className={styles.appGrid}>
             <WelcomeWidget onOpen={() => void handleOpenApp("WELCOME")} />
+            {Array.from({ length: 4 }, (_, i) => (
+              <div key={`spacer-${i}`} className={styles.gridSpacer} />
+            ))}
             {mobileApps.map(({ appName, label, Icon }) => (
               <button
                 key={appName}
